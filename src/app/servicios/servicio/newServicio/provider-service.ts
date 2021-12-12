@@ -38,4 +38,14 @@ constructor(private http: HttpClient) { }
       
     }
 
+    deleteServicePaso1(service: Service): Observable<Service> {
+        return this.http.put<Service>(this.servicioUrl+'/borrar/'+service.id, service, httpOptions)
+      
+    }
+
+    deleteServicePaso2(service: Service): Observable<Service> {
+        return this.http.put<Service>(this.servicioUrl+'/borrar2/'+service.id, service, httpOptions)
+      
+    }
+
 }
