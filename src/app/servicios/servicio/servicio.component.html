@@ -1,18 +1,18 @@
 
 
-<label>Servicios del usuario</label>
+<label>TUS SERVICIOS</label>
 <ul>
 <li *ngFor="let servicio of servicios"
     class="list-group-item list-group-item-action" 
    
     >
      {{servicio.nombre}}
-     <button (click)="editarServicio(servicio)"> Editar</button>
+     <button (click)="editarServicio(servicio)"> Ver/Editar</button>
      <button (click)="borrarServicio(servicio)"> Borrar</button>
 </li>
 </ul>
 
-
+<label>ZONA PARA VER Y EDITAR UN SERVICIO</label>
 <form (ngSubmit)="cambiarDatos()" #servicioForm="ngForm">
     <div class="form-group">
      <label for="name">Nombre</label>
@@ -48,6 +48,6 @@
         <input type="text" class="form-control" id="Imagenes" required [(ngModel)]="model.imagenes" name="Imagenes">
     </div>
    
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Guardar cambios</button>
 
 </form>
