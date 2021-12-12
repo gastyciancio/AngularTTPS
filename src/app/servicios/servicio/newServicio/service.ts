@@ -1,6 +1,7 @@
 export class Service {
    
     constructor(
+        public  id:number,
         public  nombre:string,
         public  tipo:string,
         public  descripcion:string,

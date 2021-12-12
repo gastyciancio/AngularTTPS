@@ -10,7 +10,7 @@ import { ServicioService } from '../provider-service';
 })
 export class NuevoServicioComponent implements OnInit {
 
- model = new Service(" "," "," "," "," "," "," "," ");
+ model = new Service(0," "," "," "," "," "," "," "," ");
 
  onSubmit() { 
 
@@ -37,9 +37,6 @@ export class NuevoServicioComponent implements OnInit {
       whatsapp_:string,
       imagenes_:string): void {
 
-
-        console.log(nombre_);
-
         nombre_ = nombre_.trim();
         tipo_ = tipo_.trim();
         descripcion_ = descripcion_.trim();
@@ -62,7 +59,8 @@ export class NuevoServicioComponent implements OnInit {
       whatsapp:whatsapp_,
       imagenes:imagenes_ } as Service;
     this.serService.addService(newServicio)
-    .subscribe(servicio =>null);
+    .subscribe(resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
+
     }
    
 

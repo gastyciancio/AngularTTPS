@@ -15,7 +15,7 @@ import { NuevoServicioComponent } from './servicios/servicio/newServicio/nuevo-s
     AppComponent,
     EventosComponent,
     ServicioComponent,
-    NuevoServicioComponent,
+    NuevoServicioComponent
     
   ],
   imports: [
