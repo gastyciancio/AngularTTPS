@@ -41,11 +41,12 @@ export class ServicioComponent implements OnInit {
     }
 
     borrarServicio(servicio:Service):void{
-      this.serService.deleteServicePaso1(servicio) 
-      .subscribe();
-      this.serService.deleteServicePaso2(servicio) 
-      .subscribe();
-      
+      if(confirm('¿Estas seguro que quieres borrar el servicio?')){
+          this.serService.deleteServicePaso1(servicio) 
+            .subscribe();
+          this.serService.deleteServicePaso2(servicio) 
+            .subscribe();
+    }
   }
 
     cambiarDatos():void{
