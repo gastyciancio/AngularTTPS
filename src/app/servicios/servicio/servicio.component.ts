@@ -23,11 +23,18 @@ export class ServicioComponent implements OnInit {
       .subscribe(servicios => {
           let lista_ul=document.getElementById('listaServicios');
           servicios.forEach(servicio => {
+            var d=document.createElement("div");
             var li = document.createElement("li");
+            d.appendChild(li)
             li.appendChild(document.createTextNode(servicio.nombre));
+            var boton= document.createElement("button");
+            boton.innerText="Editar";
+            boton.onclick=function(){
+              
+            }
+            d.appendChild(boton);
             if(lista_ul!=null)
-              lista_ul.appendChild(li);
-            
+              lista_ul.appendChild(d);
           });
         }
 
