@@ -12,7 +12,7 @@ import { Service } from './newServicio/service';
 export class ServicioComponent implements OnInit {
 
     servicios: Service[] = [];
-    model= new Service(" "," "," "," "," "," "," "," ");
+    model= new Service(0," "," "," "," "," "," "," "," ");
  
     constructor(private serService: ServicioService, public router: Router ) { }
   
@@ -37,16 +37,18 @@ export class ServicioComponent implements OnInit {
 
     editarServicio(servicio:Service):void{
         this.model=servicio;
+        console.log(servicio.id);
     }
 
     cambiarDatos():void{
 
-      this.update(this.model.nombre,this.model.tipo,this.model.descripcion,this.model.url,
+      this.update(this.model.id,this.model.nombre,this.model.tipo,this.model.descripcion,this.model.url,
         this.model.twitter,this.model.instagram,this.model.whatsapp,this.model.imagenes);
     
     }
 
-    update(nombre_: string,
+    update(id_:number,
+          nombre_: string,
           tipo_:string,
           descripcion_:string,
           url_:string,
@@ -68,7 +70,7 @@ export class ServicioComponent implements OnInit {
           if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") { return; }
 
 
-        const newServicio: Service = { nombre : nombre_,
+        const newServicio: Service = { id:id_,nombre : nombre_,
             tipo:tipo_,
             descripcion:descripcion_,
             url: url_,
@@ -76,7 +78,8 @@ export class ServicioComponent implements OnInit {
             instagram:instagram_,
             whatsapp:whatsapp_,
             imagenes:imagenes_ } as Service;
-            this.serService.updateService(newServicio);
+            this.serService.updateService(newServicio) 
+            .subscribe(resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
 
       }
  
