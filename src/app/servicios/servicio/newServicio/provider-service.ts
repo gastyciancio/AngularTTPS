@@ -33,4 +33,10 @@ constructor(private http: HttpClient) { }
         return this.http.post<Service>(this.servicioUrl, service, httpOptions)
     }
 
+    updateService(service: Service): string {
+        /**return this.http.put<Service>(this.servicioUrl+'/'+service., service, httpOptions)*/
+        console.log("probando")
+        return "prueba"
+    }
+
 }
