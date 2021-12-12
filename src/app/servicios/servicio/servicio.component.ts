@@ -37,8 +37,16 @@ export class ServicioComponent implements OnInit {
 
     editarServicio(servicio:Service):void{
         this.model=servicio;
-        console.log(servicio.id);
+        
     }
+
+    borrarServicio(servicio:Service):void{
+      this.serService.deleteServicePaso1(servicio) 
+      .subscribe();
+      this.serService.deleteServicePaso2(servicio) 
+      .subscribe();
+      
+  }
 
     cambiarDatos():void{
 
