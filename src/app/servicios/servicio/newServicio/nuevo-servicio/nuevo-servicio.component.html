@@ -1,0 +1,38 @@
+<form (ngSubmit)="onSubmit()" #servicioForm="ngForm">
+    <div class="form-group">
+     <label for="name">Nombre</label>
+     <input type="text" class="form-control" id="Nombre" required [(ngModel)]="model.nombre" name="Nombre">
+    </div>
+
+    <div class="form-group">
+        <label for="name">Tipo</label>
+        <input type="text" class="form-control" id="Tipo" required [(ngModel)]="model.tipo" name="Tipo">
+    </div>
+    <div class="form-group">
+        <label for="name">Descripcion</label>
+        <input type="text" class="form-control" required id="Descripcion"  [(ngModel)]="model.descripcion" name="Descripcion">
+    </div>
+    <div class="form-group">
+        <label for="name">Url</label>
+        <input type="text" class="form-control" id="Url" required [(ngModel)]="model.url" name="Url">
+    </div>
+    <div class="form-group">
+        <label for="name">Twitter</label>
+        <input type="text" class="form-control" id="Twitter" required [(ngModel)]="model.twitter" name="Twitter">
+    </div>
+    <div class="form-group">
+        <label for="name">Instagram</label>
+        <input type="text" class="form-control" id="Instagram" required [(ngModel)]="model.instagram" name="Instagram">
+    </div>
+    <div class="form-group">
+        <label for="name">Whatsapp</label>
+        <input type="text" class="form-control" id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
+    </div>
+    <div class="form-group">
+        <label for="name">Imagenes</label>
+        <input type="text" class="form-control" id="Imagenes" required [(ngModel)]="model.imagenes" name="Imagenes">
+    </div>
+   
+    <button type="submit" class="btn btn-success">Submit</button>
+
+</form>
