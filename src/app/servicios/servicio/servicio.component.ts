@@ -11,6 +11,7 @@ import { Service } from './newServicio/service';
 })
 export class ServicioComponent implements OnInit {
 
+    visibleFormularioEdit: boolean = false;
     servicios: Service[] = [];
     model= new Service(0," "," "," "," "," "," "," "," ");
  
@@ -37,6 +38,10 @@ export class ServicioComponent implements OnInit {
 
     editarServicio(servicio:Service):void{
         this.model=servicio;
+        if(this.visibleFormularioEdit==true)
+            this.visibleFormularioEdit=false
+        else  
+            this.visibleFormularioEdit=true;
         
     }
 
@@ -87,8 +92,10 @@ export class ServicioComponent implements OnInit {
             instagram:instagram_,
             whatsapp:whatsapp_,
             imagenes:imagenes_ } as Service;
+            this.visibleFormularioEdit=false;
             this.serService.updateService(newServicio) 
-            .subscribe(resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
+            .subscribe(
+              resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
 
       }
  
