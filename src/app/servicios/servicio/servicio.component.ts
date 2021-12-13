@@ -11,8 +11,10 @@ import { Service } from './newServicio/service';
 })
 export class ServicioComponent implements OnInit {
 
+    visibleFormularioEdit: boolean = false;
     servicios: Service[] = [];
     model= new Service(0," "," "," "," "," "," "," "," ");
+    mensaje:string=""
  
     constructor(private serService: ServicioService, public router: Router ) { }
   
@@ -36,16 +38,25 @@ export class ServicioComponent implements OnInit {
 
 
     editarServicio(servicio:Service):void{
+        if(this.visibleFormularioEdit==true){
+          if(this.model==servicio)
+            this.visibleFormularioEdit=false
+        }
+        else  
+            this.visibleFormularioEdit=true;
         this.model=servicio;
-        
     }
 
+    
+
     borrarServicio(servicio:Service):void{
-      this.serService.deleteServicePaso1(servicio) 
-      .subscribe();
-      this.serService.deleteServicePaso2(servicio) 
-      .subscribe();
-      
+      if(confirm('¿Estas seguro que quieres borrar el servicio?')){
+          this.serService.deleteServicePaso1(servicio) 
+            .subscribe( ()=>{ this.serService.deleteServicePaso2(servicio)
+                                  .subscribe(resultado=>this.mensaje="Servicio borrado, recargue la pagina para ver los cambios");
+                        }
+                      );
+      };
   }
 
     cambiarDatos():void{
@@ -75,7 +86,7 @@ export class ServicioComponent implements OnInit {
           imagenes_ = imagenes_.trim();
 
   
-          if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") { return; }
+          if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") {this.mensaje="No puede haber campos vacios"; return; }
 
 
         const newServicio: Service = { id:id_,nombre : nombre_,
@@ -86,8 +97,15 @@ export class ServicioComponent implements OnInit {
             instagram:instagram_,
             whatsapp:whatsapp_,
             imagenes:imagenes_ } as Service;
+            this.visibleFormularioEdit=false;
             this.serService.updateService(newServicio) 
-            .subscribe(resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
+            .subscribe(
+              () => {
+                this.model=new Service(0," "," "," "," "," "," "," "," ")
+                this.mensaje="Cambios guardados"
+              }
+             
+             );
 
       }
  

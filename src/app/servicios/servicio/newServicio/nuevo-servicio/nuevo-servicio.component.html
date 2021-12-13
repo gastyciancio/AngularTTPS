@@ -1,3 +1,6 @@
+<a [routerLink]="['/home']">Home</a>
+<br>
+<h3> {{mensaje}}</h3>
 <form (ngSubmit)="onSubmit()" #servicioForm="ngForm">
     <div class="form-group">
      <label for="name">Nombre</label>
@@ -33,6 +36,6 @@
         <input type="text" class="form-control" id="Imagenes" required [(ngModel)]="model.imagenes" name="Imagenes">
     </div>
    
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Crear servicio</button>
 
 </form>
