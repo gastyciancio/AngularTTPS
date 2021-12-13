@@ -11,6 +11,7 @@ import { ServicioService } from '../provider-service';
 export class NuevoServicioComponent implements OnInit {
 
  model = new Service(0," "," "," "," "," "," "," "," ");
+ mensaje:string=""
 
  onSubmit() { 
 
@@ -47,7 +48,7 @@ export class NuevoServicioComponent implements OnInit {
         imagenes_ = imagenes_.trim();
 
     
-    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") { return; }
+    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") {  this.mensaje="Complete todos los datos por favor"; return }
 
     // The server will generate the id 
     const newServicio: Service = { nombre : nombre_,
@@ -59,7 +60,10 @@ export class NuevoServicioComponent implements OnInit {
       whatsapp:whatsapp_,
       imagenes:imagenes_ } as Service;
     this.serService.addService(newServicio)
-    .subscribe(resultado=>this.model=new Service(0," "," "," "," "," "," "," "," "));
+    .subscribe(  () => {
+      this.model=new Service(0," "," "," "," "," "," "," "," ")
+      this.mensaje="Servicio agregado"
+    });
 
     }
    

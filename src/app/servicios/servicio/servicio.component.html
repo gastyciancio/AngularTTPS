@@ -1,5 +1,5 @@
 
-
+ <h3> {{mensaje}}</h3>
 <label>TUS SERVICIOS</label>
 <ul>
 <li *ngFor="let servicio of servicios"
@@ -7,7 +7,7 @@
     [class.active]="servicio ==model">
 
      {{servicio.nombre}}
-     
+
      <button (click)="editarServicio(servicio)"> Ver/Editar</button>
      <button (click)="borrarServicio(servicio)"> Borrar</button>
 </li>
@@ -51,7 +51,9 @@
         </div>
    
         <button type="submit" class="btn btn-success">Guardar cambios</button>
+       
 
     </form>
 
 </div>
+
