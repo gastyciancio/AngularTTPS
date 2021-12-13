@@ -8,12 +8,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServicioComponent } from './servicios/servicio/servicio.component';
 import { NuevoServicioComponent } from './servicios/servicio/newServicio/nuevo-servicio/nuevo-servicio.component';
+import { HomeComponent } from './home/home/home.component';
+import { LoginComponent } from './login/loginRegister/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServicioComponent,
-    NuevoServicioComponent
+    NuevoServicioComponent,
+    HomeComponent,
+    LoginComponent
     
   ],
   imports: [
