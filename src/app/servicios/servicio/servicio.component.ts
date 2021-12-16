@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicioService } from './newServicio/provider-service';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Service } from './newServicio/service';
+import { UsersService } from 'src/app/users/user.service';
 
 @Component({
   selector: 'servicios',
@@ -16,11 +17,12 @@ export class ServicioComponent implements OnInit {
     model= new Service(0," "," "," "," "," "," "," "," ");
     mensaje:string=""
  
-    constructor(private serService: ServicioService, public router: Router ) { }
+    constructor(private serService: ServicioService, public router: Router,public userService:UsersService ) { }
   
     ngOnInit(): void {
-      this.getServices(1);
+      this.getServices(+(this.userService.getToken().split("-",1)[0]));
     }
+
     get diagnostic() { return JSON.stringify(this.model); }
 
     getServices(id: number
