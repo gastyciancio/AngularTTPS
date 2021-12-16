@@ -76,6 +76,11 @@ public processFile(event:any,posicion:number){
   ngOnInit(): void {
   }
 
+  clearImage(): any {
+    this.previsualizacion = [];
+    this.selectedFile = [];
+  }
+
   
   add(nombre_: string,
       tipo_:string,
@@ -100,19 +105,23 @@ public processFile(event:any,posicion:number){
             fotos=fotos+this.previsualizacion[2]+",";
     if(this.selectedFile[3]!=undefined)
             fotos=fotos+ this.previsualizacion[3]+",";
+    
+    var blob = new Blob([fotos], {type: 'text/plain'});
 
     if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || fotos=="" ) {  this.mensaje="Complete todos los datos por favor"; return }
     if (this.contadorFotos>4) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
       
     // The server will generate the id 
-    const newServicio: Service = { nombre : nombre_,
-      tipo:tipo_,
-      descripcion:descripcion_,
+    const newServicio: Service = {
+      nombre: nombre_,
+      tipo: tipo_,
+      descripcion: descripcion_,
       url: url_,
-      twitter:twitter_,
-      instagram:instagram_,
-      whatsapp:whatsapp_,
-      imagenes:fotos} as Service;
+      twitter: twitter_,
+      instagram: instagram_,
+      whatsapp: whatsapp_,
+      imagenes: fotos
+    } as Service;
     this.selectedFile = [];
     this.contadorFotos=0;
     fotos="";
@@ -123,6 +132,7 @@ public processFile(event:any,posicion:number){
       console.log(res);
       this.model=new Service(0," "," "," "," "," "," "," "," ")
       this.mensaje="Servicio agregado"
+      this.clearImage()
     });
 
     }

@@ -82,6 +82,11 @@ export class ServicioComponent implements OnInit {
       catch{}
     }
 
+    clearImage(): any {
+      this.previsualizacion = [];
+      this.selectedFile = [];
+    }
+
 
     editarServicio(servicio:Service):void{
         if(this.visibleFormularioEdit==true){
@@ -149,6 +154,7 @@ export class ServicioComponent implements OnInit {
               () => {
                 this.model=new Service(0," "," "," "," "," "," "," "," ")
                 this.mensaje="Cambios guardados"
+                this.clearImage()
               }
              
              );
