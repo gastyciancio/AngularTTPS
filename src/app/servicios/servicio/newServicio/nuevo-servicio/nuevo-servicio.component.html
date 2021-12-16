@@ -44,3 +44,14 @@
     <button type="submit" class="btn btn-success">Crear servicio</button>
 
 </form>
+<ul>
+    <li *ngIf="previsualizacion[1]">
+       <img height="200px" [src]="previsualizacion[1]"/>
+    </li>
+    <li *ngIf="previsualizacion[2]">
+       <img height="200px" [src]="previsualizacion[2]"/>
+    </li>
+    <li *ngIf="previsualizacion[3]">
+       <img height="200px" [src]="previsualizacion[3]"/>
+    </li>
+</ul>

@@ -19,6 +19,7 @@ export class ServicioComponent implements OnInit {
     mensaje:string=""
     selectedFile: any[]=[];
     contadorFotos: number=0;
+    previsualizacion:any[]=[];
 
  
     constructor(private sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
@@ -43,19 +44,42 @@ export class ServicioComponent implements OnInit {
       );
     }
 
+    extraerBase64 = async ($event: any) => new Promise((resolve) => {
+      try {
+        const unsafeImg = window.URL.createObjectURL($event);
+        const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+        const reader = new FileReader();
+        reader.readAsDataURL($event);
+        reader.onload = () => { 
+           resolve({
+            base: reader.result
+          });
+        };
+        reader.onerror = error => {
+           resolve({
+            base: null
+          });
+        };
+        return null
+  
+      } catch (e) {
+        return null;
+      }
+    })
+
     public processFile(event:any,posicion:number){
       try{
         if(this.selectedFile[posicion]==undefined)
             this.contadorFotos=this.contadorFotos+1;
-        this.selectedFile[posicion]=event.target.files[0].type;
-        console.log(event.target.files[0]);
-        console.log(this.contadorFotos);
-       
+        const archivoCapturado = event.target.files[0]
+        this.extraerBase64(archivoCapturado).then((imagen: any) => {
+          this.previsualizacion[posicion] = imagen.base;
+          console.log(imagen);
+    
+        })
+        this.selectedFile[posicion]=archivoCapturado
       }
       catch{}
-      finally{
-        console.log(this.selectedFile)
-      }
     }
 
 

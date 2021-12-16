@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
 import { HttpClient } from '@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class NuevoServicioComponent implements OnInit {
  mensaje:string=""
  public selectedFile:any=[];
  contadorFotos:number=0;
+ previsualizacion:any[]=[];
  
 
  onSubmit() { 
@@ -25,13 +27,40 @@ export class NuevoServicioComponent implements OnInit {
    
 }
 
+extraerBase64 = async ($event: any) => new Promise((resolve) => {
+  try {
+    const unsafeImg = window.URL.createObjectURL($event);
+    const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+    const reader = new FileReader();
+    reader.readAsDataURL($event);
+    reader.onload = () => { 
+       resolve({
+        base: reader.result
+      });
+    };
+    reader.onerror = error => {
+       resolve({
+        base: null
+      });
+    };
+    return null
+
+  } catch (e) {
+    return null;
+  }
+})
+
 public processFile(event:any,posicion:number){
   try{
     if(this.selectedFile[posicion]==undefined)
         this.contadorFotos=this.contadorFotos+1;
-    this.selectedFile[posicion]=event.target.files[0].name;
-    console.log(event.target.files[0]);
-    console.log(this.contadorFotos);
+    const archivoCapturado = event.target.files[0]
+    this.extraerBase64(archivoCapturado).then((imagen: any) => {
+    this.previsualizacion[posicion] = imagen.base;
+          console.log(imagen);
+    
+    })
+    this.selectedFile[posicion]=archivoCapturado
    
   }
   catch{}
@@ -42,7 +71,7 @@ public processFile(event:any,posicion:number){
  
  get diagnostic() { return JSON.stringify(this.model); }
 
-  constructor(private serService: ServicioService,private httpClient: HttpClient) { }
+  constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private httpClient: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -66,11 +95,11 @@ public processFile(event:any,posicion:number){
         
     let fotos:string="";
     if(this.selectedFile[1]!=undefined)
-            fotos=fotos+this.selectedFile[1]+",";
+            fotos=fotos+this.previsualizacion[1]+",";
     if(this.selectedFile[2]!=undefined)
-            fotos=fotos+this.selectedFile[2]+",";
+            fotos=fotos+this.previsualizacion[2]+",";
     if(this.selectedFile[3]!=undefined)
-            fotos=fotos+this.selectedFile[3]+",";
+            fotos=fotos+ this.previsualizacion[3]+",";
 
     if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || fotos=="" ) {  this.mensaje="Complete todos los datos por favor"; return }
     if (this.contadorFotos>4) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
