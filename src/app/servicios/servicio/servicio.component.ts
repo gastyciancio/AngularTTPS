@@ -3,6 +3,7 @@ import { ServicioService } from './newServicio/provider-service';
 import { Router } from '@angular/router';
 import { Service } from './newServicio/service';
 import { UsersService } from 'src/app/users/user.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'servicios',
@@ -16,11 +17,15 @@ export class ServicioComponent implements OnInit {
     servicios: Service[] = [];
     model= new Service(0," "," "," "," "," "," "," "," ");
     mensaje:string=""
+    selectedFile: any[]=[];
+    contadorFotos: number=0;
+
  
-    constructor(private serService: ServicioService, public router: Router,public userService:UsersService ) { }
+    constructor(private sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
   
     ngOnInit(): void {
       this.getServices(+(this.userService.getToken().split("-",1)[0]));
+  
     }
 
     get diagnostic() { return JSON.stringify(this.model); }
@@ -36,6 +41,21 @@ export class ServicioComponent implements OnInit {
           })
         }
       );
+    }
+
+    public processFile(event:any,posicion:number){
+      try{
+        if(this.selectedFile[posicion]==undefined)
+            this.contadorFotos=this.contadorFotos+1;
+        this.selectedFile[posicion]=event.target.files[0].type;
+        console.log(event.target.files[0]);
+        console.log(this.contadorFotos);
+       
+      }
+      catch{}
+      finally{
+        console.log(this.selectedFile)
+      }
     }
 
 
