@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
 
+
 @Component({
   selector: 'app-nuevo-servicio',
   templateUrl: './nuevo-servicio.component.html',
@@ -20,6 +21,10 @@ export class NuevoServicioComponent implements OnInit {
    
 }
 
+processFile(event:any){
+  
+
+}
  
  get diagnostic() { return JSON.stringify(this.model); }
 
@@ -45,10 +50,12 @@ export class NuevoServicioComponent implements OnInit {
         twitter_ = twitter_.trim();
         instagram_ = instagram_.trim();
         whatsapp_ = whatsapp_.trim();
-        imagenes_ = imagenes_.trim();
+        
+        
 
-    
     if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") {  this.mensaje="Complete todos los datos por favor"; return }
+    if  (imagenes_.length>3) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
+    //if (this.fotos.length>4) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
 
     // The server will generate the id 
     const newServicio: Service = { nombre : nombre_,
