@@ -24,4 +24,12 @@ constructor(private http: HttpClient,private cookies: CookieService) {}
   getToken() {
     return this.cookies.get("token");
   }
+  isLogged(){
+    if(this.cookies.get('token')){
+      return true
+    }
+    else{
+      return false
+    }
+    }
 }
