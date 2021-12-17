@@ -34,7 +34,19 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
     }
   }
   logOut(){
+    this.getUser();
     this.cookies.delete("token");
     this.router.navigateByUrl('/');
+  }
+  getUser(){
+    const token=this.cookies.get("token");
+    const splited=token.split('-');
+    const id_user=splited[0];
+    const httph = {
+      headers: new HttpHeaders({
+        'token': token
+      })}
+    return this.http.get(this.usuarioUrl+"usuario/"+id_user,httph);
+  
   }
 }
