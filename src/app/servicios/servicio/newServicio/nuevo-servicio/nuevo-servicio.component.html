@@ -32,10 +32,26 @@
         <input type="text" class="form-control" id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
     </div>
     <div class="form-group">
-        <label for="name">Imagen (url del sitio donde se encuentra)</label>
-        <input type="text" class="form-control" id="Imagenes" required [(ngModel)]="model.imagenes" name="Imagenes">
+        <label for="name">Imagenes</label>
+        <br>
+        <input type="file"  (change)="processFile($event,1)"  accept="image/*" #Imagenes1 required name="Imagenes1">
+        <br>
+        <input type="file"  (change)="processFile($event,2)"  accept="image/*" #Imagenes2 required name="Imagenes2">
+        <br>
+        <input type="file"  (change)="processFile($event,3)"  accept="image/*" #Imagenes3 required name="Imagenes3">
     </div>
    
     <button type="submit" class="btn btn-success">Crear servicio</button>
 
 </form>
+<ul>
+    <li *ngIf="previsualizacion[1]">
+       <img height="200px" [src]="previsualizacion[1]"/>
+    </li>
+    <li *ngIf="previsualizacion[2]">
+       <img height="200px" [src]="previsualizacion[2]"/>
+    </li>
+    <li *ngIf="previsualizacion[3]">
+       <img height="200px" [src]="previsualizacion[3]"/>
+    </li>
+</ul>
