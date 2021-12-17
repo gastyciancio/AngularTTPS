@@ -19,7 +19,7 @@ export class RegisterComponent {
     register() {
       if (this.email=="" || this.password=="" || this.name=="" || this.username=="" || this.lastname=="") {  this.mensaje="Complete todos los datos por favor"; return }
       const user ={email:this.email,contraseña:this.password,nombre:this.name,nombre_usuario:this.username,apellido:this.lastname}
-      this.userService.register(user).subscribe(data =>{console.log(data);this.router.navigateByUrl('/')}, err =>{console.log("se rompio");this.mensaje="El nombre de usuario/mail ya esta en uso,por favor elija otro";return})
+      this.userService.register(user).subscribe(data =>{console.log(data);this.router.navigateByUrl('/')}, err =>{this.mensaje="El nombre de usuario/mail ya esta en uso,por favor elija otro";return})
       
     }
     
