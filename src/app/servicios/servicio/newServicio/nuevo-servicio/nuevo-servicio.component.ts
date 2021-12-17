@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
 import { HttpClient } from '@angular/common/http';
@@ -13,12 +13,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class NuevoServicioComponent implements OnInit {
 
- model = new Service(0," "," "," "," "," "," "," "," ");
+ model = new Service(0," "," "," "," "," "," "," "," "," "," ");
  mensaje:string=""
  public selectedFile:any=[];
  contadorFotos:number=0;
  previsualizacion:any[]=[];
+ @ViewChild('Imagenes1') myInputFileVariable1: ElementRef =new ElementRef("srgsg");
+ @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
+ @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
+
  
+ constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private httpClient: HttpClient) { }
 
  onSubmit() { 
 
@@ -71,9 +76,9 @@ public processFile(event:any,posicion:number){
  
  get diagnostic() { return JSON.stringify(this.model); }
 
-  constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private httpClient: HttpClient) { }
-
+  
   ngOnInit(): void {
+  
   }
 
   clearImage(): any {
@@ -98,17 +103,17 @@ public processFile(event:any,posicion:number){
         instagram_ = instagram_.trim();
         whatsapp_ = whatsapp_.trim();
         
-    let fotos:string="";
+    let foto1:string="";
+    let foto2:string="";
+    let foto3:string="";
     if(this.selectedFile[1]!=undefined)
-            fotos=fotos+this.previsualizacion[1]+",";
+            foto1=this.previsualizacion[1];
     if(this.selectedFile[2]!=undefined)
-            fotos=fotos+this.previsualizacion[2]+",";
+            foto2=foto2+this.previsualizacion[2];
     if(this.selectedFile[3]!=undefined)
-            fotos=fotos+ this.previsualizacion[3]+",";
-    
-    var blob = new Blob([fotos], {type: 'text/plain'});
+            foto3=this.previsualizacion[3];
 
-    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || fotos=="" ) {  this.mensaje="Complete todos los datos por favor"; return }
+    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || (foto1=="" && foto2=="" && foto3=="")) {  this.mensaje="Complete todos los datos por favor"; return }
     if (this.contadorFotos>4) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
       
     // The server will generate the id 
@@ -120,19 +125,29 @@ public processFile(event:any,posicion:number){
       twitter: twitter_,
       instagram: instagram_,
       whatsapp: whatsapp_,
-      imagenes: fotos
+      imagen1: foto1,
+      imagen2: foto2,
+      imagen3: foto3
+
     } as Service;
     this.selectedFile = [];
     this.contadorFotos=0;
-    fotos="";
+    foto1="";
+    foto2="";
+    foto3="";
   
     this.serService.addService(newServicio)
     .subscribe(  (res) => {
       console.log("se agrego el servicio");
       console.log(res);
-      this.model=new Service(0," "," "," "," "," "," "," "," ")
+      this.model=new Service(0," "," "," "," "," "," "," "," "," "," ")
       this.mensaje="Servicio agregado"
       this.clearImage()
+      this.myInputFileVariable1.nativeElement.value='';
+      this.myInputFileVariable2.nativeElement.value='';
+      this.myInputFileVariable3.nativeElement.value='';
+      
+      
     });
 
     }

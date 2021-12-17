@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ServicioService } from './newServicio/provider-service';
 import { Router } from '@angular/router';
 import { Service } from './newServicio/service';
@@ -15,17 +15,27 @@ export class ServicioComponent implements OnInit {
 
     visibleFormularioEdit: boolean = false;
     servicios: Service[] = [];
-    model= new Service(0," "," "," "," "," "," "," "," ");
+    model= new Service(0," "," "," "," "," "," "," "," "," "," ");
     mensaje:string=""
     selectedFile: any[]=[];
     contadorFotos: number=0;
     previsualizacion:any[]=[];
+    fotos1:any[]=[];
+    fotos2:any[]=[];
+    fotos3:any[]=[];
+    posicion:number=0
+    @ViewChild('Imagenes1') myInputFileVariable1: ElementRef =new ElementRef("srgsg");
+    @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
+    @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
  
-    constructor(private sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
-  
+    constructor(public sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
+   
+   
+
     ngOnInit(): void {
       this.getServices(+(this.userService.getToken().split("-",1)[0]));
+    
   
     }
 
@@ -37,8 +47,13 @@ export class ServicioComponent implements OnInit {
       this.serService.getServiciosOfUser(id.toString())
       .subscribe(servicios => 
         {
+          let pos:number=0;
           servicios.forEach(servicio => {
               this.servicios.push(servicio);
+              this.fotos1[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen1));
+              this.fotos2[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen2));
+              this.fotos3[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen3));
+              pos=pos+1;
           })
         }
       );
@@ -113,7 +128,7 @@ export class ServicioComponent implements OnInit {
     cambiarDatos():void{
 
       this.update(this.model.id,this.model.nombre,this.model.tipo,this.model.descripcion,this.model.url,
-        this.model.twitter,this.model.instagram,this.model.whatsapp,this.model.imagenes);
+        this.model.twitter,this.model.instagram,this.model.whatsapp);
     
     }
 
@@ -124,8 +139,7 @@ export class ServicioComponent implements OnInit {
           url_:string,
           twitter_:string,
           instagram_:string,
-          whatsapp_:string,
-          imagenes_:string): void {
+          whatsapp_:string): void {
 
           nombre_ = nombre_.trim();
           tipo_ = tipo_.trim();
@@ -134,12 +148,22 @@ export class ServicioComponent implements OnInit {
           twitter_ = twitter_.trim();
           instagram_ = instagram_.trim();
           whatsapp_ = whatsapp_.trim();
-          imagenes_ = imagenes_.trim();
-
+          
+          
+          let foto1:string=this.model.imagen1;
+          let foto2:string=this.model.imagen2;
+          let foto3:string=this.model.imagen3;
+          if(this.selectedFile[1]!=undefined)
+                  foto1=this.previsualizacion[1];
+          if(this.selectedFile[2]!=undefined)
+                  foto2=this.previsualizacion[2];
+          if(this.selectedFile[3]!=undefined)
+                  foto3=this.previsualizacion[3];
   
-          if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") {this.mensaje="No puede haber campos vacios"; return; }
+          if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || (foto1=="" && foto2=="" && foto3=="")) {this.mensaje="No puede haber campos vacios"; return; }
 
 
+        
         const newServicio: Service = { id:id_,nombre : nombre_,
             tipo:tipo_,
             descripcion:descripcion_,
@@ -147,14 +171,19 @@ export class ServicioComponent implements OnInit {
             twitter:twitter_,
             instagram:instagram_,
             whatsapp:whatsapp_,
-            imagenes:imagenes_ } as Service;
+            imagen1: foto1,
+            imagen2:foto2,
+            imagen3:foto3 } as Service;
             this.visibleFormularioEdit=false;
             this.serService.updateService(newServicio) 
             .subscribe(
               () => {
-                this.model=new Service(0," "," "," "," "," "," "," "," ")
+                this.model=new Service(0," "," "," "," "," "," "," "," "," "," ")
                 this.mensaje="Cambios guardados"
                 this.clearImage()
+                this.myInputFileVariable1.nativeElement.value='';
+                this.myInputFileVariable2.nativeElement.value='';
+                this.myInputFileVariable3.nativeElement.value='';
               }
              
              );
