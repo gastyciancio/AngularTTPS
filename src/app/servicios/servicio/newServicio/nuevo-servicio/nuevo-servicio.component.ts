@@ -1,9 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
-import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-
 
 @Component({
   selector: 'app-nuevo-servicio',
@@ -22,8 +20,7 @@ export class NuevoServicioComponent implements OnInit {
  @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
  @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
- 
- constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private httpClient: HttpClient) { }
+ constructor(private sanitizer: DomSanitizer,private serService: ServicioService) { }
 
  onSubmit() { 
 
@@ -48,7 +45,7 @@ extraerBase64 = async ($event: any) => new Promise((resolve) => {
         base: null
       });
     };
-    return null
+    return null;
 
   } catch (e) {
     return null;
@@ -57,26 +54,17 @@ extraerBase64 = async ($event: any) => new Promise((resolve) => {
 
 public processFile(event:any,posicion:number){
   try{
-    if(this.selectedFile[posicion]==undefined)
+      if(this.selectedFile[posicion]==undefined)
         this.contadorFotos=this.contadorFotos+1;
-    const archivoCapturado = event.target.files[0]
-    this.extraerBase64(archivoCapturado).then((imagen: any) => {
-    this.previsualizacion[posicion] = imagen.base;
-          console.log(imagen);
-    
-    })
-    this.selectedFile[posicion]=archivoCapturado
+      const archivoCapturado = event.target.files[0]
+      this.extraerBase64(archivoCapturado).then((imagen: any) => {
+        this.previsualizacion[posicion] = imagen.base;
+      })
+      this.selectedFile[posicion]=archivoCapturado;
+    }
+    catch{}
+  }
    
-  }
-  catch{}
-  finally{
-    console.log(this.selectedFile)
-  }
-}
- 
- get diagnostic() { return JSON.stringify(this.model); }
-
-  
   ngOnInit(): void {
   
   }
@@ -86,7 +74,6 @@ public processFile(event:any,posicion:number){
     this.selectedFile = [];
   }
 
-  
   add(nombre_: string,
       tipo_:string,
       descripcion_:string,
@@ -140,17 +127,12 @@ public processFile(event:any,posicion:number){
     .subscribe(  (res) => {
       console.log("se agrego el servicio");
       console.log(res);
-      this.model=new Service(0," "," "," "," "," "," "," "," "," "," ")
-      this.mensaje="Servicio agregado"
+      this.model=new Service(0," "," "," "," "," "," "," "," "," "," ");
+      this.mensaje="Servicio agregado";
       this.clearImage()
       this.myInputFileVariable1.nativeElement.value='';
       this.myInputFileVariable2.nativeElement.value='';
       this.myInputFileVariable3.nativeElement.value='';
-      
-      
     });
-
     }
-   
-
 }
