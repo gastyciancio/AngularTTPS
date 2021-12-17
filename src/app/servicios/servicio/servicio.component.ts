@@ -18,7 +18,6 @@ export class ServicioComponent implements OnInit {
     model= new Service(0," "," "," "," "," "," "," "," "," "," ");
     mensaje:string=""
     selectedFile: any[]=[];
-    contadorFotos: number=0;
     previsualizacion:any[]=[];
     fotos1:any[]=[];
     fotos2:any[]=[];
@@ -28,18 +27,12 @@ export class ServicioComponent implements OnInit {
     @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
     @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
- 
     constructor(public sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
    
-   
-
+  
     ngOnInit(): void {
       this.getServices(+(this.userService.getToken().split("-",1)[0]));
-    
-  
     }
-
-    get diagnostic() { return JSON.stringify(this.model); }
 
     getServices(id: number
        ): void {
@@ -75,7 +68,7 @@ export class ServicioComponent implements OnInit {
             base: null
           });
         };
-        return null
+        return null;
   
       } catch (e) {
         return null;
@@ -84,24 +77,16 @@ export class ServicioComponent implements OnInit {
 
     public processFile(event:any,posicion:number){
       try{
-        if(this.selectedFile[posicion]==undefined)
-            this.contadorFotos=this.contadorFotos+1;
         const archivoCapturado = event.target.files[0]
         this.extraerBase64(archivoCapturado).then((imagen: any) => {
           this.previsualizacion[posicion] = imagen.base;
           console.log(imagen);
     
         })
-        this.selectedFile[posicion]=archivoCapturado
+        this.selectedFile[posicion]=archivoCapturado;
       }
       catch{}
     }
-
-    clearImage(): any {
-      this.previsualizacion = [];
-      this.selectedFile = [];
-    }
-
 
     editarServicio(servicio:Service):void{
         if(this.visibleFormularioEdit==true){
@@ -114,7 +99,6 @@ export class ServicioComponent implements OnInit {
     }
 
     
-
     borrarServicio(servicio:Service):void{
       if(confirm('¿Estas seguro que quieres borrar el servicio?')){
           this.serService.deleteServicePaso1(servicio) 
@@ -130,6 +114,11 @@ export class ServicioComponent implements OnInit {
       this.update(this.model.id,this.model.nombre,this.model.tipo,this.model.descripcion,this.model.url,
         this.model.twitter,this.model.instagram,this.model.whatsapp);
     
+    }
+
+    clearImage(): any {
+      this.previsualizacion = [];
+      this.selectedFile = [];
     }
 
     update(id_:number,
@@ -162,9 +151,7 @@ export class ServicioComponent implements OnInit {
   
           if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || (foto1=="" && foto2=="" && foto3=="")) {this.mensaje="No puede haber campos vacios"; return; }
 
-
-        
-        const newServicio: Service = { id:id_,nombre : nombre_,
+          const newServicio: Service = { id:id_,nombre : nombre_,
             tipo:tipo_,
             descripcion:descripcion_,
             url: url_,
@@ -178,18 +165,14 @@ export class ServicioComponent implements OnInit {
             this.serService.updateService(newServicio) 
             .subscribe(
               () => {
-                this.model=new Service(0," "," "," "," "," "," "," "," "," "," ")
-                this.mensaje="Cambios guardados"
-                this.clearImage()
+                this.model=new Service(0," "," "," "," "," "," "," "," "," "," ");
+                this.mensaje="Cambios guardados";
+                this.clearImage();
                 this.myInputFileVariable1.nativeElement.value='';
                 this.myInputFileVariable2.nativeElement.value='';
                 this.myInputFileVariable3.nativeElement.value='';
               }
-             
              );
-
       }
- 
-
   }
   
