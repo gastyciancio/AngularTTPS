@@ -24,8 +24,7 @@ export class EditarUsuarioComponent implements OnInit{
     this.userService.getUser().subscribe(
         data =>{this.x=data;console.log(this.x);
           })// aca esta la data del usuario
-        this.model= JSON.parse(this.x);
-        console.log(this.model);
+        
         
       
     }
