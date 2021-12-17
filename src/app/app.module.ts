@@ -12,14 +12,17 @@ import { HomeComponent } from './home/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CookieService } from 'ngx-cookie-service';
+import { EditarUsuarioComponent } from './editarusuario/editarusuario.component';
 @NgModule({
   declarations: [
     AppComponent,
     ServicioComponent,
     NuevoServicioComponent,
     HomeComponent,
+    EditarUsuarioComponent,
     RegisterComponent,
     LoginComponent
+    
     
   ],
   imports: [

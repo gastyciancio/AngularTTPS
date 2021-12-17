@@ -19,6 +19,11 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   login(httph: any): Observable<any> {
     return this.http.post(this.usuarioUrl+"autenticacion",null,httph);
   }
+
+  edit(user:any,httph:any):Observable<any>{
+    return this.http.put(this.usuarioUrl+'usuario/'+this.getId(),user,httph);
+  }
+
   setToken(token: string) {
     this.cookies.set("token", token);
   }
@@ -49,4 +54,11 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
     return this.http.get(this.usuarioUrl+"usuario/"+id_user,httph);
   
   }
+  getId(){
+    const token=this.cookies.get("token");
+    const splited=token.split('-');
+    const id_user=splited[0];
+    return id_user
+  }
+
 }
