@@ -23,6 +23,13 @@ export class EditarUsuarioComponent implements OnInit{
   ngOnInit(): void {
     this.userService.getUser().subscribe(
         data =>{this.x=data;console.log(this.x);
+          this.email=this.x.email;
+          this.password=this.x.contraseña;
+          this.name=this.x.nombre;
+          this.username=this.x.nombre_usuario;
+          this.lastname=this.x.apellido;
+
+
           })// aca esta la data del usuario
         
         
