@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -10,7 +11,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class UsersService {
 
 usuarioUrl = 'http://localhost:8080/ttps-spring/'; // URL to web api
-constructor(private http: HttpClient,private cookies: CookieService) {}
+constructor(private http: HttpClient,private cookies: CookieService,private router:Router) {}
 
   register(user: any): Observable<any> {
     return this.http.post(this.usuarioUrl+"usuario", user);
@@ -23,5 +24,17 @@ constructor(private http: HttpClient,private cookies: CookieService) {}
   }
   getToken() {
     return this.cookies.get("token");
+  }
+  isLogged(){
+    if(this.cookies.get('token')){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+  logOut(){
+    this.cookies.delete("token");
+    this.router.navigateByUrl('/');
   }
 }

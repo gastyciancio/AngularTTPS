@@ -1,6 +1,6 @@
 
 <div class="login">
-  <h3> {{mensaje}}</h3>
+  
   <form class="custom-form" method="post">
     <h1>Login</h1>
     <input
@@ -19,5 +19,6 @@
     />
     <button type="submit" (click)="login()">Log in</button>
     <a [routerLink]="['/register']">Registrarse</a>
+    <h3> {{mensaje}}</h3>
   </form>
 </div>
