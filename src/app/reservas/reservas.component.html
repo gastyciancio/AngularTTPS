@@ -1,0 +1,50 @@
+<a [routerLink]="['/home']">Home</a>
+<h1>{{servicio.nombre}}</h1>
+<h3>{{servicio.tipo}}</h3>
+<h4>{{servicio.descripcion}}</h4>
+
+<h6>{{servicio.instagram}}</h6>
+<h6>{{servicio.twitter}}</h6>
+<h6>{{servicio.whatsapp}}</h6>
+<h6>{{servicio.url}}</h6>
+<h1>faltan las imagenes aca</h1>
+<button (click)="reservarServicio(servicio.id)">reservar</button>
+<div *ngIf="visibleReserva==true">
+    <label >RESERVA</label>
+    <form class="custom-form" method="post">
+        <input
+          [(ngModel)]="reserva.descripcion"
+          type="text"
+          name="descripcion"
+          placeholder="descripcion"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.informacion"
+          type="text"
+          name="informacion"
+          placeholder="informacion"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.mail"
+          type="mail"
+          name="mail"
+          placeholder="mail"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.telefono"
+          type="text"
+          name="telefono"
+          placeholder="telefono"
+          required="required"
+        />
+        <input type="date"  name="fecha"
+        [(ngModel)]="reserva.fecha"min="Date.today()">
+        <button type="submit" (click)="registrarReserva(servicio.id)">Reservar!</button>
+        <button (click)="cancelarReserva(servicio.id)">salir de reserva</button>
+        <h1> {{mensaje}}</h1>
+        
+      </form>
+</div>

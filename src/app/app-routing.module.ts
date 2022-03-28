@@ -5,11 +5,15 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NuevoServicioComponent } from './servicios/servicio/newServicio/nuevo-servicio/nuevo-servicio.component';
 import { ServicioComponent } from './servicios/servicio/servicio.component';
+import { ReservasComponent } from './reservas/reservas.component';
 import { CanActivateViaAuthGuard } from './users/canactivate';
 import { EditarUsuarioComponent } from './editarusuario/editarusuario.component';
+import { MisReservasComponent } from './misreservas/misreservas.component';
 const routes: Routes = [
   { path:'register',component:RegisterComponent,pathMatch:'full'},
-  { path: 'servicios', component: ServicioComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
+  { path: 'servicios', component: ServicioComponent,pathMatch: 'prefix',canActivate:[CanActivateViaAuthGuard]},
+  { path: 'reservas',component: MisReservasComponent,pathMatch:'full',canActivate:[CanActivateViaAuthGuard]},
+  { path: 'reservas/:id', component: ReservasComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
   { path: 'nuevoServicio', component: NuevoServicioComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
   { path: 'home', component: HomeComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
   { path: 'editar', component: EditarUsuarioComponent,pathMatch: 'full'},

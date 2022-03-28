@@ -13,6 +13,14 @@ export class UsersService {
 usuarioUrl = 'http://localhost:8080/ttps-spring/'; // URL to web api
 constructor(private http: HttpClient,private cookies: CookieService,private router:Router) {}
 
+
+  registerReserva(reserva:any,httph:any): Observable<any>{
+    return this.http.post(this.usuarioUrl+"reserva",reserva,httph);
+
+  }
+  registerFormaPago(formaPago:any,httph:any):Observable<any>{
+    return this.http.post(this.usuarioUrl+"formaPago",null,httph)
+  }
   register(user: any): Observable<any> {
     return this.http.post(this.usuarioUrl+"usuario", user);
   }
