@@ -9,6 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReservaService } from "./provider-reserva";
 import { Reserva } from "./reserva";
+import { FormaPago } from "./formapago";
+import { Estado } from "./estado";
+
 @Component({
   selector: "app-reservas",
   templateUrl: "./reservas.component.html",
@@ -17,27 +20,27 @@ import { Reserva } from "./reserva";
 })
 export class ReservasComponent {
   visibleReserva:boolean=false
-  mensaje:string=''
+  mensaje:string='';
   reserva=new Reserva(0," "," "," "," "," ");
+  forma_pago:string='';
+
   servicio:ListaServicios={id:'',nombre:'',tipo:'',descripcion:'',url:'',twitter:'',instagram:'',whatsapp:'',imagen1:'',imagen2:'',imagen3:''}
   id:number=0
   fotos1:any;
   fotos2:any;
   fotos3:any;
+  reserva_creada: any;
 
   constructor(public userService:UsersService, public router:Router,public activatedRoute:ActivatedRoute, public http:HttpClient,
     public sanitizer: DomSanitizer,private resService: ReservaService) {}
 
   ngOnInit(): void {
      this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    console.log(this.id)
     this.getAllServices().subscribe(data =>{
       this.servicio=data
       this.fotos1=(this.sanitizer.bypassSecurityTrustUrl(data.imagen1));
       this.fotos2=(this.sanitizer.bypassSecurityTrustUrl(data.imagen2));
       this.fotos3=(this.sanitizer.bypassSecurityTrustUrl(data.imagen3));
-      
-      console.log(this.servicio)
       
     })
     }
@@ -59,7 +62,7 @@ export class ReservasComponent {
     }
 
     registrarReserva(id:any){
-      if (this.reserva.descripcion== "" || this.reserva.fecha==""  || this.reserva.informacion =="" || this.reserva.mail==""|| this.reserva.telefono=="") {  this.mensaje="Complete todos los datos por favor"; return }
+      if (this.reserva.descripcion== "" || this.reserva.fecha==""  || this.reserva.informacion =="" || this.reserva.mail==""|| this.reserva.telefono=="" || this.forma_pago=="") {  this.mensaje="Complete todos los datos por favor"; return }
       const reserva_a_guardar={informacion:this.reserva.informacion,descripcion:this.reserva.descripcion,mail:this.reserva.mail,telefono:this.reserva.telefono,fecha:this.reserva.fecha}
       console.log(reserva_a_guardar)
 
@@ -77,13 +80,17 @@ export class ReservasComponent {
         fecha: this.reserva.fecha,
         telefono:  this.reserva.telefono,
       } as Reserva;
-     
+
+      
+
+      
     
-      this.resService.addReserva(newReserva,String(id))
+      this.resService.addReserva(newReserva,String(id),this.forma_pago)
       .subscribe(  (res) => {
-        console.log(res);
+
         this.reserva=new Reserva(0," "," "," "," "," ");
         this.mensaje="Reserva agregada";
+
  
       },err =>{this.mensaje="La fecha ya esta ocupada, por favor elija otra";return});
       

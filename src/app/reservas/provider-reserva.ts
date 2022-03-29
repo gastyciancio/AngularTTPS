@@ -4,6 +4,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Reserva } from './reserva';
 import { UsersService } from 'src/app/users/user.service';
+import { FormaPago } from './formapago';
+import { Estado } from './estado';
 
 let header = new HttpHeaders();
 header=header.set( 'Content-Type', 'application/json').set(
@@ -21,6 +23,8 @@ let httpOptions = {
 @Injectable()
 export class ReservaService {
 reservaUrl = 'http://localhost:8080/ttps-spring/reserva'; // URL to web api
+formaPagoUrl = 'http://localhost:8080/ttps-spring/formaPago'; // URL to web api
+estadoUrl = 'http://localhost:8080/ttps-spring/estado'; // URL to web api
 
 constructor(private http: HttpClient,public userService:UsersService) {}
 
@@ -35,15 +39,19 @@ constructor(private http: HttpClient,public userService:UsersService) {}
     
 
    /** POST: add a new reserva to the database */
-    addReserva (reserva: Reserva, idServicio:any): Observable<Reserva> {
+    addReserva (reserva: Reserva, idServicio:any,formapago:any): Observable<Reserva> {
         header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
         header=header.set("idServicio",idServicio);
         httpOptions.headers=header
+        header=header.set("formapago",formapago);
+        httpOptions.headers=header
         return this.http.post<Reserva>(this.reservaUrl, reserva, httpOptions)
     }
+
+   
 
     updateReserva(reserva: Reserva): Observable<Reserva> {
         return this.http.put<Reserva>(this.reservaUrl+'/'+reserva.id, reserva, httpOptions)

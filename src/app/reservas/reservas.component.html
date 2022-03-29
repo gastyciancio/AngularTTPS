@@ -48,6 +48,13 @@
         />
         <input type="date"  name="fecha"
         [(ngModel)]="reserva.fecha"min="Date.today()">
+        <input
+          [(ngModel)]="forma_pago"
+          type="text"
+          name="formapago"
+          placeholder="Forma de pago"
+          required="required"
+        />
         <button type="submit" (click)="registrarReserva(servicio.id)">Reservar!</button>
         <button (click)="cancelarReserva(servicio.id)">salir de reserva</button>
         <h1> {{mensaje}}</h1>
