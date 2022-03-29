@@ -11,10 +11,11 @@
     <button type="submit" (click)="logOut()">Cerrar sesion</button>
 
 </nav>
+<br>
 
 <form class="custom-form" method="get">
   <input
-    [(ngModel)]="filtro"
+    [(ngModel)]="filtroTipo"
     type="text"
     name="filtrotipo"
     placeholder="Tipo para filtrar"
@@ -22,6 +23,22 @@
   />
   
   <button type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
+  <button type="submit" (click)="resetearTabla()">Resetear</button>
+  
+</form>
+<br>
+
+<form class="custom-form" method="get">
+  <input
+    [(ngModel)]="filtroNombre"
+    type="text"
+    name="filtroNombre"
+    placeholder="Nombre para buscar"
+    required="required"
+  />
+  
+  <button type="submit" (click)="buscarServiciosPorNombre()">Buscar por nombre</button>
+  <button type="submit" (click)="resetearTabla()">Resetear</button>
   
 </form>
 
