@@ -89,7 +89,10 @@ export class ReservasComponent {
         this.mensaje="Reserva agregada";
 
  
-      },err =>{this.mensaje="La fecha ya esta ocupada, por favor elija otra";return});
+      },err =>{if(err.status==412) {
+          this.mensaje="La fecha ya esta ocupada, por favor elija otra";return
+        }else this.mensaje="Reserva agregada";
+      });
       
      
     }

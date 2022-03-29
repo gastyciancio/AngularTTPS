@@ -52,7 +52,7 @@ export class NewValoracionComponent implements OnInit {
       console.log(res);
       this.model = new Valoracion(0,"0","0","0","0","0");
       this.mensaje="Valoracion agregada";
-    }, err =>{this.mensaje=err; return});
+    }, err =>{this.mensaje="Ya calificaste este servicio";return});
     }
 
 }
