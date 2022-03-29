@@ -4,8 +4,9 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Reserva } from './reserva';
 import { UsersService } from 'src/app/users/user.service';
-import { FormaPago } from './formapago';
 import { Estado } from './estado';
+import { FormaPago } from './formapago';
+
 
 let header = new HttpHeaders();
 header=header.set( 'Content-Type', 'application/json').set(
@@ -63,22 +64,29 @@ constructor(private http: HttpClient,public userService:UsersService) {}
       
     }
 
-    /** GET status from a reserva */
+    /** GET status */
     getAllStatus(): Observable<Estado[]> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
-        httpOptions.headers=header
-        header=header.set("token",this.userService.getToken());
-        httpOptions.headers=header
+        
         return this.http.get<Estado[]>('http://localhost:8080/ttps-spring/estado',httpOptions)
     }
 
-    /** GET formaPago from a reserva */
+    /** GET formaPagos */
     getAllFormaPagos(): Observable<FormaPago[]> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
-        httpOptions.headers=header
-        header=header.set("token",this.userService.getToken());
-        httpOptions.headers=header
+        
         return this.http.get<FormaPago[]>('http://localhost:8080/ttps-spring/formaPago/',httpOptions)
+    }
+
+    updateStatusOfReserva(idEstado: any, estado:Estado): Observable<Estado> {
+        return this.http.put<Estado>(this.estadoUrl+'/'+idEstado, estado, httpOptions)
+      
+    }
+
+    getStatusOfReserva(idReserva:any): Observable<Estado>{
+        return this.http.get<Estado>('http://localhost:8080/ttps-spring/estado/'+idReserva,httpOptions)
+    }
+
+    getFormaPagoOfReserva(idReserva:any): Observable<FormaPago>{
+        return this.http.get<FormaPago>('http://localhost:8080/ttps-spring/formaPago/'+idReserva,httpOptions)
     }
 
     

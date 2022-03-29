@@ -1,7 +1,7 @@
 export class Estado {
    
     constructor(
-        public  id:number,
+        public  id:any,
 
         public  estado:string,
         

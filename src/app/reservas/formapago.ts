@@ -1,7 +1,7 @@
 export class FormaPago {
    
     constructor(
-        public  id:number,
+        public  id:any,
 
         public  forma_pago:string,
        
