@@ -63,6 +63,24 @@ constructor(private http: HttpClient,public userService:UsersService) {}
       
     }
 
+    /** GET status from a reserva */
+    getAllStatus(): Observable<Estado[]> {
+        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
+        return this.http.get<Estado[]>('http://localhost:8080/ttps-spring/estado',httpOptions)
+    }
+
+    /** GET formaPago from a reserva */
+    getAllFormaPagos(): Observable<FormaPago[]> {
+        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
+        return this.http.get<FormaPago[]>('http://localhost:8080/ttps-spring/formaPago/',httpOptions)
+    }
+
     
 
 }

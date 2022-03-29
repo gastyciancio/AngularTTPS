@@ -12,13 +12,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let reserva of reservas">
+      <tr *ngFor="let reserva of reservas; index as i">
         <td>{{reserva.informacion}}</td>
         <td>{{reserva.descripcion}}</td>
         <td>{{reserva.mail}}</td>
         <td>{{reserva.telefono}}</td>
-        <td>FALTA PONER</td>
-        <td>FALTA PONER</td>
+        <td>{{estados[i].estado}}</td>
+        <td>{{formaPagos[i].forma_pago}}</td>
       </tr>
       
     </tbody>
