@@ -11,6 +11,21 @@
     <button type="submit" (click)="logOut()">Cerrar sesion</button>
 
 </nav>
+
+<form class="custom-form" method="get">
+  <input
+    [(ngModel)]="filtro"
+    type="text"
+    name="filtrotipo"
+    placeholder="Tipo para filtrar"
+    required="required"
+  />
+  
+  <button type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
+  
+</form>
+
+
 <table class="table">
     <thead>
       <tr>
