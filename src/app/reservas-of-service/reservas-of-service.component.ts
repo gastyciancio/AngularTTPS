@@ -43,7 +43,7 @@ export class ReservasOfServiceComponent implements OnInit {
 
   editarEstado(idEstado:any, estado:any): void{
     const nuevo_estado = new Estado(idEstado,estado);
-    this.reservaService.updateStatusOfReserva(idEstado,nuevo_estado).subscribe((data)=>{});
+    this.reservaService.updateStatusOfReserva(idEstado,nuevo_estado).subscribe((data)=>{window.location.reload();});
 
   }
 
