@@ -1,13 +1,19 @@
 <a [routerLink]="['/home']">Home</a>
-<h1>{{servicio.nombre}}</h1>
-<h3>{{servicio.tipo}}</h3>
-<h4>{{servicio.descripcion}}</h4>
-
-<h6>{{servicio.instagram}}</h6>
-<h6>{{servicio.twitter}}</h6>
-<h6>{{servicio.whatsapp}}</h6>
-<h6>{{servicio.url}}</h6>
-<h1>faltan las imagenes aca</h1>
+<h3>nombre: {{servicio.nombre}}</h3>
+<h3>Tipo: {{servicio.tipo}}</h3>
+<h3>Descripcion: {{servicio.descripcion}}</h3>
+<h3>Instagram: {{servicio.instagram}}</h3>
+<h3>Twitter: {{servicio.twitter}}</h3>
+<h3>Whatsapp: {{servicio.whatsapp}}</h3>
+<h3>Url: {{servicio.url}}</h3>
+<img height="200px" [src]="fotos1"/>
+<br>
+<br>
+<img height="200px" [src]="fotos2"/>
+<br>
+<br>
+<img height="200px" [src]="fotos3"/>
+<br>
 <button (click)="reservarServicio(servicio.id)">reservar</button>
 <div *ngIf="visibleReserva==true">
     <label >RESERVA</label>

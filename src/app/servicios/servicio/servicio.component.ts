@@ -29,7 +29,7 @@ export class ServicioComponent implements OnInit {
 
     constructor(public sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
    
-  
+   
     ngOnInit(): void {
       this.getServices(+(this.userService.getToken().split("-",1)[0]));
     }

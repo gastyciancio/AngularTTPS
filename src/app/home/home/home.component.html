@@ -14,7 +14,6 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">ID</th>
         <th scope="col">Nombre</th>
         <th scope="col">Tipo</th>
         <th scope="col">Descripcion</th>
@@ -24,7 +23,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let servicio of servicios">
-        <th scope="row">{{servicio.id}}</th>
         <td>{{servicio.nombre}}</td>
         <td>{{servicio.tipo}}</td>
         <td>{{servicio.descripcion}}</td>

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import {UsersService} from "../users/user.service";
+
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
@@ -7,6 +8,7 @@ import { ListaServicios } from "../home/home/listaservicios.interface";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServicioComponent } from "../servicios/servicio/servicio.component";
 import { Reserva } from "./reserva.interface";
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: "app-reservas",
   templateUrl: "./reservas.component.html",
@@ -18,14 +20,21 @@ export class ReservasComponent {
   reserva:Reserva={id:'',descripcion:'',informacion:'',fecha:'',mail:'',telefono:''}
   servicio:ListaServicios={id:'',nombre:'',tipo:'',descripcion:'',url:'',twitter:'',instagram:'',whatsapp:'',imagen1:'',imagen2:'',imagen3:''}
   id:number=0
+  fotos1:any;
+  fotos2:any;
+  fotos3:any;
 
-  constructor(public userService:UsersService, public router:Router,public activatedRoute:ActivatedRoute, public http:HttpClient) {}
+  constructor(public userService:UsersService, public router:Router,public activatedRoute:ActivatedRoute, public http:HttpClient,
+    public sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
      this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
     console.log(this.id)
     this.getAllServices().subscribe(data =>{
       this.servicio=data
+      this.fotos1=(this.sanitizer.bypassSecurityTrustUrl(data.imagen1));
+      this.fotos2=(this.sanitizer.bypassSecurityTrustUrl(data.imagen2));
+      this.fotos3=(this.sanitizer.bypassSecurityTrustUrl(data.imagen3));
       
       console.log(this.servicio)
       
