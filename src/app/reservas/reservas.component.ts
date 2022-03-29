@@ -6,18 +6,19 @@ import { Observable } from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import { ListaServicios } from "../home/home/listaservicios.interface";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ServicioComponent } from "../servicios/servicio/servicio.component";
-import { Reserva } from "./reserva.interface";
 import { DomSanitizer } from '@angular/platform-browser';
+import { ReservaService } from "./provider-reserva";
+import { Reserva } from "./reserva";
 @Component({
   selector: "app-reservas",
   templateUrl: "./reservas.component.html",
+  providers: [ ReservaService ],
   styleUrls: ["./reservas.component.css"]
 })
 export class ReservasComponent {
   visibleReserva:boolean=false
   mensaje:string=''
-  reserva:Reserva={id:'',descripcion:'',informacion:'',fecha:'',mail:'',telefono:''}
+  reserva=new Reserva(0," "," "," "," "," ");
   servicio:ListaServicios={id:'',nombre:'',tipo:'',descripcion:'',url:'',twitter:'',instagram:'',whatsapp:'',imagen1:'',imagen2:'',imagen3:''}
   id:number=0
   fotos1:any;
@@ -25,7 +26,7 @@ export class ReservasComponent {
   fotos3:any;
 
   constructor(public userService:UsersService, public router:Router,public activatedRoute:ActivatedRoute, public http:HttpClient,
-    public sanitizer: DomSanitizer) {}
+    public sanitizer: DomSanitizer,private resService: ReservaService) {}
 
   ngOnInit(): void {
      this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
@@ -69,8 +70,24 @@ export class ReservasComponent {
           'idServicio': String(id)
         }),
       }; 
+      const newReserva: Reserva = {
+        informacion: this.reserva.informacion,
+        mail: this.reserva.mail,
+        descripcion: this.reserva.descripcion,
+        fecha: this.reserva.fecha,
+        telefono:  this.reserva.telefono,
+      } as Reserva;
+     
+    
+      this.resService.addReserva(newReserva,String(id))
+      .subscribe(  (res) => {
+        console.log(res);
+        this.reserva=new Reserva(0," "," "," "," "," ");
+        this.mensaje="Reserva agregada";
+ 
+      },err =>{this.mensaje="La fecha ya esta ocupada, por favor elija otra";return});
       
-      this.userService.registerReserva(reserva_a_guardar,httph).subscribe(data =>{console.log(data);this.router.navigate(['home']);}, err =>{this.mensaje="ERROR";return})
+     
     }
     
 }
