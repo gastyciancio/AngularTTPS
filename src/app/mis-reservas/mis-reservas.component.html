@@ -1,0 +1,30 @@
+<a [routerLink]="['/home']">Home</a>
+<h1>Mis reservas</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Info</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Servicio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reserva of mis_reservas; index as i">
+        <td>{{reserva.descripcion}}</td>
+        <td>{{reserva.fecha}}</td>
+        <td>{{reserva.informacion}}</td>
+        <td>{{servicios[i].nombre}}</td>
+        <td>
+            <div>
+                {{estados[i].estado}} 
+                <div *ngIf="estados[i].estado=='Confirmada'">
+                    <button (click)="valorarServicio(servicios[i].id)">Valorar</button>
+                </div>
+            </div>
+         </td>
+      </tr>
+      
+    </tbody>
+  </table>

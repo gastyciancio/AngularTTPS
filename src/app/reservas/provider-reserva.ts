@@ -6,6 +6,7 @@ import { Reserva } from './reserva';
 import { UsersService } from 'src/app/users/user.service';
 import { Estado } from './estado';
 import { FormaPago } from './formapago';
+import { Service } from '../servicios/servicio/newServicio/service';
 
 
 let header = new HttpHeaders();
@@ -35,7 +36,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
-        return this.http.get<Reserva[]>('http://localhost:8080/ttps-spring/usuario/'+idUser+'/servicios',httpOptions)
+        return this.http.get<Reserva[]>('http://localhost:8080/ttps-spring/usuario/'+idUser+'/reservas',httpOptions)
     }
     
 
@@ -49,6 +50,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
         httpOptions.headers=header
         header=header.set("formapago",formapago);
         httpOptions.headers=header
+        
         return this.http.post<Reserva>(this.reservaUrl, reserva, httpOptions)
     }
 
@@ -87,6 +89,10 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
     getFormaPagoOfReserva(idReserva:any): Observable<FormaPago>{
         return this.http.get<FormaPago>('http://localhost:8080/ttps-spring/formaPago/'+idReserva,httpOptions)
+    }
+
+    getServicesFromReserva(idReserva:any): Observable<Service>{
+        return this.http.get<Service>('http://localhost:8080/ttps-spring/reserva/'+idReserva+'/servicio',httpOptions)
     }
 
     

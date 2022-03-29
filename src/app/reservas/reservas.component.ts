@@ -63,8 +63,6 @@ export class ReservasComponent {
     registrarReserva(id:any){
       if (this.reserva.descripcion== "" || this.reserva.fecha==""  || this.reserva.informacion =="" || this.reserva.mail==""|| this.reserva.telefono=="" || this.forma_pago=="") {  this.mensaje="Complete todos los datos por favor"; return }
       const reserva_a_guardar={informacion:this.reserva.informacion,descripcion:this.reserva.descripcion,mail:this.reserva.mail,telefono:this.reserva.telefono,fecha:this.reserva.fecha}
-      console.log(reserva_a_guardar)
-
       
       const httph = {
         headers: new HttpHeaders({

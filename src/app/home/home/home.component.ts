@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
   }
 
   reservarServicio(id:any){
-    this.router.navigate(['creeate_reservas',id]);
+    this.router.navigate(['create_reserva',id]);
 
 
   }

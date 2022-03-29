@@ -17,6 +17,8 @@ import { EditarUsuarioComponent } from './editarusuario/editarusuario.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material/core';
 import { ReservasOfServiceComponent } from './reservas-of-service/reservas-of-service.component';
+import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
+import { NewValoracionComponent } from './new-valoracion/new-valoracion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { ReservasOfServiceComponent } from './reservas-of-service/reservas-of-se
     EditarUsuarioComponent,
     RegisterComponent,
     LoginComponent,
-    ReservasOfServiceComponent
+    ReservasOfServiceComponent,
+    MisReservasComponent,
+    NewValoracionComponent
     
     
   ],

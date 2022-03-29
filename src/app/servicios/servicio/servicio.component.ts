@@ -176,7 +176,7 @@ export class ServicioComponent implements OnInit {
       }
 
       verReservas(id:any){
-        this.router.navigate(['reservas',id]);
+        this.router.navigate(['see_reservas',id]);
     
     
       }
