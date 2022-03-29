@@ -16,6 +16,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { EditarUsuarioComponent } from './editarusuario/editarusuario.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatNativeDateModule} from '@angular/material/core';
+import { ReservasOfServiceComponent } from './reservas-of-service/reservas-of-service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     HomeComponent,
     EditarUsuarioComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ReservasOfServiceComponent
     
     
   ],

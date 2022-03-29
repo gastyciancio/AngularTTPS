@@ -9,8 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReservaService } from "./provider-reserva";
 import { Reserva } from "./reserva";
-import { FormaPago } from "./formapago";
-import { Estado } from "./estado";
+
 
 @Component({
   selector: "app-reservas",

@@ -22,32 +22,33 @@
           [(ngModel)]="reserva.descripcion"
           type="text"
           name="descripcion"
-          placeholder="descripcion"
+          placeholder="Descripcion"
           required="required"
         />
         <input
           [(ngModel)]="reserva.informacion"
           type="text"
           name="informacion"
-          placeholder="informacion"
+          placeholder="Informacion"
           required="required"
         />
         <input
           [(ngModel)]="reserva.mail"
           type="mail"
           name="mail"
-          placeholder="mail"
+          placeholder="Mail"
           required="required"
         />
         <input
           [(ngModel)]="reserva.telefono"
           type="text"
           name="telefono"
-          placeholder="telefono"
+          placeholder="Telefono"
           required="required"
         />
         <input type="date"  name="fecha"
         [(ngModel)]="reserva.fecha"min="Date.today()">
+
         <input
           [(ngModel)]="forma_pago"
           type="text"
@@ -56,7 +57,7 @@
           required="required"
         />
         <button type="submit" (click)="registrarReserva(servicio.id)">Reservar!</button>
-        <button (click)="cancelarReserva(servicio.id)">salir de reserva</button>
+        <button (click)="cancelarReserva(servicio.id)">Salir de reserva</button>
         <h1> {{mensaje}}</h1>
         
       </form>

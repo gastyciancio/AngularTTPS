@@ -1,0 +1,25 @@
+<a [routerLink]="['/home']">Home</a>
+<h1>Mis reservas para el servicio</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Informacion</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Forma de Pago</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reserva of reservas">
+        <td>{{reserva.informacion}}</td>
+        <td>{{reserva.descripcion}}</td>
+        <td>{{reserva.mail}}</td>
+        <td>{{reserva.telefono}}</td>
+        <td>FALTA PONER</td>
+        <td>FALTA PONER</td>
+      </tr>
+      
+    </tbody>
+  </table>

@@ -4,6 +4,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Service } from './service';
 import { UsersService } from 'src/app/users/user.service';
+import { Reserva } from 'src/app/reservas/reserva';
 
 let header = new HttpHeaders();
 header=header.set( 'Content-Type', 'application/json').set(
@@ -55,6 +56,21 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
     deleteServicePaso2(service: Service): Observable<Service> {
         return this.http.put<Service>(this.servicioUrl+'/borrar2/'+service.id, service, httpOptions)
+      
+    }
+
+    getServiceById(id_service: any): Observable<Service> {
+        return this.http.get<Service>(this.servicioUrl+'/'+id_service, httpOptions)
+      
+    }
+
+    getReservasforServiceById(id: any): Observable<Reserva[]> {
+       
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
+        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        httpOptions.headers=header
+        return this.http.get<Reserva[]>(this.servicioUrl+'/'+id+"/reservas", httpOptions)
       
     }
 
