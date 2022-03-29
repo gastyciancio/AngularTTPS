@@ -1,0 +1,64 @@
+<a [routerLink]="['/home']">Home</a>
+<h3>nombre: {{servicio.nombre}}</h3>
+<h3>Tipo: {{servicio.tipo}}</h3>
+<h3>Descripcion: {{servicio.descripcion}}</h3>
+<h3>Instagram: {{servicio.instagram}}</h3>
+<h3>Twitter: {{servicio.twitter}}</h3>
+<h3>Whatsapp: {{servicio.whatsapp}}</h3>
+<h3>Url: {{servicio.url}}</h3>
+<img height="200px" [src]="fotos1"/>
+<br>
+<br>
+<img height="200px" [src]="fotos2"/>
+<br>
+<br>
+<img height="200px" [src]="fotos3"/>
+<br>
+<button (click)="reservarServicio(servicio.id)">reservar</button>
+<div *ngIf="visibleReserva==true">
+    <label >RESERVA</label>
+    <form class="custom-form" method="post">
+        <input
+          [(ngModel)]="reserva.descripcion"
+          type="text"
+          name="descripcion"
+          placeholder="Descripcion"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.informacion"
+          type="text"
+          name="informacion"
+          placeholder="Informacion"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.mail"
+          type="mail"
+          name="mail"
+          placeholder="Mail"
+          required="required"
+        />
+        <input
+          [(ngModel)]="reserva.telefono"
+          type="text"
+          name="telefono"
+          placeholder="Telefono"
+          required="required"
+        />
+        <input type="date"  name="fecha"
+        [(ngModel)]="reserva.fecha"min="Date.today()">
+
+        <input
+          [(ngModel)]="forma_pago"
+          type="text"
+          name="formapago"
+          placeholder="Forma de pago"
+          required="required"
+        />
+        <button type="submit" (click)="registrarReserva(servicio.id)">Reservar!</button>
+        <button (click)="cancelarReserva(servicio.id)">Salir de reserva</button>
+        <h1> {{mensaje}}</h1>
+        
+      </form>
+</div>
