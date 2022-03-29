@@ -22,11 +22,14 @@
         <td>
           <div>
             {{estados[i].estado}} 
-            <div *ngIf="estados[i].estado=='Rechazada'">
+            <div *ngIf="estados[i].estado=='Rechazada' || estados[i].estado=='Pendiente'">
               <button (click)="editarEstado(estados[i].id, 'Aceptada')">Aceptar</button>
             </div>
-            <div *ngIf="estados[i].estado=='Aceptada'">
+            <div *ngIf="estados[i].estado=='Aceptada' || estados[i].estado=='Pendiente'">
               <button (click)="editarEstado(estados[i].id, 'Rechazada')">Rechazar</button>
+            </div>
+            <br>
+            <div *ngIf="estados[i].estado=='Aceptada'">
               <button  (click)="editarEstado(estados[i].id, 'Confirmada')">Confirmar</button>
             </div>
          </div>
