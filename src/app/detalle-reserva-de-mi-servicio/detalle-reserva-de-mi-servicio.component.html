@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+<br>
+<ul class="list-group">
+    <li class="list-group-item info">Descripcion: {{currentReserva.descripcion}}</li>
+    <li class="list-group-item info">Informacion: {{currentReserva.informacion}}</li>
+    <li class="list-group-item info">Fecha: {{currentReserva.fecha}}</li>
+    <li class="list-group-item info">Mail: {{currentReserva.mail}}</li>
+    <li class="list-group-item info">Telefono: {{currentReserva.telefono}}</li>
+    <li class="list-group-item info">FormaPago:  {{currentFormaPago.forma_pago}}  </li>
+    <li class="list-group-item info">Estado:   {{currentEstado.estado}} 
+        <div class="info">
+            <div *ngIf="currentEstado.estado=='Rechazada' || currentEstado.estado=='Pendiente'">
+                <button class="btn btn-success " (click)="editarEstado(currentEstado.id, 'Aceptada')">Aceptar</button>
+            </div>
+            <div *ngIf="currentEstado.estado=='Aceptada' || currentEstado.estado=='Pendiente'">
+                <button class="btn btn-danger" (click)="editarEstado(currentEstado.id, 'Rechazada')">Rechazar</button>
+            </div>
+            <br>
+            <div *ngIf="currentEstado.estado=='Aceptada'">
+                <button class="btn btn-primary" (click)="editarEstado(currentEstado.id, 'Confirmada')">Confirmar</button>
+            </div>
+        </div>
+    </li>
+</ul>
+  
+

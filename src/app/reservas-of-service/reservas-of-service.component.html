@@ -14,17 +14,15 @@
   </div>
 </nav>
 <br>
+
 <h1>Mis reservas para el servicio</h1>
 <table class="table">
     <thead>
       <tr>
         <th scope="col">Informacion</th>
         <th scope="col">Descripcion</th>
-        <th scope="col">Mail</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Forma de Pago</th>
-        <th scope="col">Estado</th>
-        <th scope="col"></th>
+        <th scope="col">Ver detalle</th>
+  
         
       </tr>
     </thead>
@@ -32,28 +30,7 @@
       <tr *ngFor="let reserva of reservas; index as i">
         <td>{{reserva.informacion}}</td>
         <td>{{reserva.descripcion}}</td>
-        <td>{{reserva.mail}}</td>
-        <td>{{reserva.telefono}}</td>
-        <td>{{formaPagos[i].forma_pago}}</td>
-        <td>
-          <div class="estadoreserva">
-            {{estados[i].estado}} 
-          </div>
-        </td>
-        <td>
-          <div class="estadoreserva">
-            <div *ngIf="estados[i].estado=='Rechazada' || estados[i].estado=='Pendiente'">
-              <button class="btn btn-success" (click)="editarEstado(estados[i].id, 'Aceptada')">Aceptar</button>
-            </div>
-            <div *ngIf="estados[i].estado=='Aceptada' || estados[i].estado=='Pendiente'">
-              <button class="btn btn-danger" (click)="editarEstado(estados[i].id, 'Rechazada')">Rechazar</button>
-            </div>
-            <br>
-            <div *ngIf="estados[i].estado=='Aceptada'">
-              <button class="btn btn-primary" (click)="editarEstado(estados[i].id, 'Confirmada')">Confirmar</button>
-            </div>
-         </div>
-        </td>
+        <td><button class="boton btn btn-primary" (click)="verDetalle(reserva.id)">Ver detalle</button></td>
        
       </tr>
       

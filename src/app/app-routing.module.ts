@@ -11,6 +11,7 @@ import { EditarUsuarioComponent } from './editarusuario/editarusuario.component'
 import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
 import { ReservasOfServiceComponent } from './reservas-of-service/reservas-of-service.component';
 import { NewValoracionComponent } from './new-valoracion/new-valoracion.component';
+import { DetalleReservaDeMiServicioComponent } from './detalle-reserva-de-mi-servicio/detalle-reserva-de-mi-servicio.component';
 const routes: Routes = [
   { path:'register',component:RegisterComponent,pathMatch:'full'},
   { path: 'servicios', component: ServicioComponent,pathMatch: 'prefix',canActivate:[CanActivateViaAuthGuard]},
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'nuevoServicio', component: NuevoServicioComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
   { path: 'home', component: HomeComponent,pathMatch: 'full',canActivate:[CanActivateViaAuthGuard]},
   { path: 'editar', component: EditarUsuarioComponent,pathMatch: 'full'},
+  { path: 'verDetalleReservaDelServicio/:id', component: DetalleReservaDeMiServicioComponent,pathMatch: 'full'},
   { path: '**', component: LoginComponent,pathMatch: 'full'},
   
 
