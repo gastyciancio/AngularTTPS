@@ -1,14 +1,31 @@
-<a [routerLink]="['/home']">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+         </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+
 <h1>Mis reservas para el servicio</h1>
 <table class="table">
     <thead>
       <tr>
         <th scope="col">Informacion</th>
         <th scope="col">Descripcion</th>
-        <th scope="col">Mail</th>
-        <th scope="col">Telefono</th>
-        <th scope="col">Forma de Pago</th>
-        <th scope="col">Estado</th>
+        <th scope="col">Ver detalle</th>
+  
         
       </tr>
     </thead>
@@ -16,24 +33,7 @@
       <tr *ngFor="let reserva of reservas; index as i">
         <td>{{reserva.informacion}}</td>
         <td>{{reserva.descripcion}}</td>
-        <td>{{reserva.mail}}</td>
-        <td>{{reserva.telefono}}</td>
-        <td>{{formaPagos[i].forma_pago}}</td>
-        <td>
-          <div>
-            {{estados[i].estado}} 
-            <div *ngIf="estados[i].estado=='Rechazada' || estados[i].estado=='Pendiente'">
-              <button (click)="editarEstado(estados[i].id, 'Aceptada')">Aceptar</button>
-            </div>
-            <div *ngIf="estados[i].estado=='Aceptada' || estados[i].estado=='Pendiente'">
-              <button (click)="editarEstado(estados[i].id, 'Rechazada')">Rechazar</button>
-            </div>
-            <br>
-            <div *ngIf="estados[i].estado=='Aceptada'">
-              <button  (click)="editarEstado(estados[i].id, 'Confirmada')">Confirmar</button>
-            </div>
-         </div>
-        </td>
+        <td><button class="boton btn btn-primary" (click)="verDetalle(reserva.id)">Ver detalle</button></td>
        
       </tr>
       

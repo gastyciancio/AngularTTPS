@@ -3,6 +3,8 @@ import { HttpHeaders } from '@angular/common/http';
 import {UsersService} from "../users/user.service";
 import { Router } from '@angular/router';
 import { Usuario } from "./usuario";
+import { Location } from '@angular/common'
+
 @Component({
   selector: "app-editarusuario",
   templateUrl: "./editarusuario.component.html",
@@ -18,7 +20,7 @@ export class EditarUsuarioComponent implements OnInit{
     x:any
     model= new Usuario(0," "," "," "," ");
 
-  constructor(public userService:UsersService, public router:Router) {}
+  constructor(public userService:UsersService, public router:Router,private location: Location) {}
   
   ngOnInit(): void {
     this.userService.getUser().subscribe(
@@ -34,6 +36,10 @@ export class EditarUsuarioComponent implements OnInit{
         
         
       
+    }
+
+    back(): void {
+      this.location.back()
     }
   
   

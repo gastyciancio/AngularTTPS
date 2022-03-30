@@ -1,0 +1,29 @@
+.boton{
+    padding: 0;
+    border: none;
+    background: none;
+    padding-left: 10px;
+}
+
+.cerrarsesion{
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    background: white;
+    
+}
+
+.d-flex{
+    width: 600px;
+    height: 55px;
+    margin-right: 10px;
+
+}
+
+.misbusquedas{
+    display: flex;
+}
+
+.botonresetear{
+    margin-left: 10px;
+}

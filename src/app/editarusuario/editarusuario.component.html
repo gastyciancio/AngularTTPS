@@ -1,10 +1,28 @@
-<a [routerLink]="['/home']">Home</a>
-<br>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+         </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <div class="register">
-    <a [routerLink]="['/home']">Home</a>
     <br> 
     <form class="custom-form" method="post">
       <h1>Editar Perfil</h1>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
       <input
         type="email"
         [(ngModel)]="email"
@@ -12,6 +30,9 @@
         placeholder="Email"
         required="required"
       />
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">Nombre Usuario</label>
       <input
         type="text"
         [(ngModel)]="username"
@@ -19,6 +40,9 @@
         placeholder="Nombre Usuario"
         required="required"
       />
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
       <input
         type="text"
         [(ngModel)]="name"
@@ -26,6 +50,10 @@
         placeholder="Nombre"
         required="required"
       />
+      </div>
+      
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Apellido</label>
       <input
         type="text"
         [(ngModel)]="lastname"
@@ -33,6 +61,9 @@
         placeholder="Apellido"
         required="required"
       />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
       <input
       type="password"
       [(ngModel)]="password"
@@ -40,8 +71,9 @@
       placeholder="Password"
       required="required"
     />
+      </div>
       <h1> {{mensaje}}</h1>
-      <button type="submit" (click)="editar()">Confirmar cambios</button>
+      <button class="btn btn-success" type="submit" (click)="editar()">Confirmar cambios</button>
       
     </form>
   </div>

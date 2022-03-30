@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Estado } from '../reservas/estado';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReservaService } from '../reservas/provider-reserva';
 import { ServicioService } from '../servicios/servicio/newServicio/provider-service';
-
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-reservas-of-service',
@@ -20,7 +19,7 @@ export class ReservasOfServiceComponent implements OnInit {
   estados:any[]=[];
   formaPagos:any[]=[];
 
-  constructor(private route: ActivatedRoute,private serService: ServicioService,private reservaService: ReservaService,public  http:HttpClient) { }
+  constructor(private route: ActivatedRoute,private serService: ServicioService,private reservaService: ReservaService,public  http:HttpClient,public router:Router,private location: Location) { }
 
   ngOnInit(): void {
     this.id=Number(this.route.snapshot.paramMap.get('id'))
@@ -28,23 +27,34 @@ export class ReservasOfServiceComponent implements OnInit {
       this.servicio=data
       this.serService.getReservasforServiceById(this.id).subscribe((reservas: any[]) =>{
         this.reservas=reservas;
-        this.reservas.forEach(reserva => {
-          this.reservaService.getStatusOfReserva(reserva.id).subscribe((status)=>{
-            this.estados.push(status);
-      
-          });
-          this.reservaService.getFormaPagoOfReserva(reserva.id).subscribe((formaPago)=>{
-            this.formaPagos.push(formaPago);
-          });
-        });
       })
     });
+
   }
 
-  editarEstado(idEstado:any, estado:any): void{
-    const nuevo_estado = new Estado(idEstado,estado);
-    this.reservaService.updateStatusOfReserva(idEstado,nuevo_estado).subscribe((data)=>{window.location.reload();});
+  verEstadoOfReserva(id_reserva:any, pos:any):void{
+  
+      this.reservaService.getStatusOfReserva(id_reserva).subscribe((status)=>{
+        this.estados[pos]=status;
+    });
 
+  }
+
+  verFormaPagoOfReserva(id_reserva:any, pos:any):void{
+    this.reservaService.getFormaPagoOfReserva(id_reserva).subscribe((formaPago)=>{
+      this.formaPagos[pos]=formaPago;
+    
+    });
+  }
+  
+
+  verDetalle(id:any){
+    this.router.navigate(['verDetalleReservaDelServicio',id]);
+
+
+  }
+  back(): void {
+    this.location.back()
   }
 
 }

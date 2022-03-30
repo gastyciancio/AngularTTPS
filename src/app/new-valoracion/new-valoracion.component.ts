@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ValoracionService } from './provider-valoracion';
 import { Valoracion } from './valoracion';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-new-valoracion',
@@ -15,7 +16,7 @@ export class NewValoracionComponent implements OnInit {
   idServicio:any;
 
 
-  constructor(private valService:ValoracionService,public activatedRoute:ActivatedRoute ) { }
+  constructor(private valService:ValoracionService,public activatedRoute:ActivatedRoute,private location: Location ) { }
 
   ngOnInit(): void {
     this.idServicio=Number(this.activatedRoute.snapshot.paramMap.get('id'))
@@ -49,10 +50,13 @@ export class NewValoracionComponent implements OnInit {
   
     this.valService.addValoracion(newValoracion, this.idServicio)
     .subscribe(  (res) => {
-      console.log(res);
-      this.model = new Valoracion(0,"0","0","0","0","0");
-      this.mensaje="Valoracion agregada";
-    }, err =>{this.mensaje="Ya calificaste este servicio";return});
+        console.log(res);
+        this.model = new Valoracion(0,"0","0","0","0","0");
+        this.mensaje="Valoracion agregada";
+      }, err =>{this.mensaje="Ya calificaste este servicio";return});
+    }
+    back(): void {
+      this.location.back()
     }
 
 }
