@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Service } from './newServicio/service';
 import { UsersService } from 'src/app/users/user.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'servicios',
@@ -27,11 +28,15 @@ export class ServicioComponent implements OnInit {
     @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
     @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
-    constructor(public sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService ) { }
+    constructor(public sanitizer: DomSanitizer,private serService: ServicioService, public router: Router,public userService:UsersService,private location: Location ) { }
    
    
     ngOnInit(): void {
       this.getServices(+(this.userService.getToken().split("-",1)[0]));
+    }
+
+    back(): void {
+      this.location.back()
     }
 
     getServices(id: number

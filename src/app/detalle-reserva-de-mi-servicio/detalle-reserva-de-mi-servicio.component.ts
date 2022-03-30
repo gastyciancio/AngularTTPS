@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Estado } from '../reservas/estado';
 import { ReservaService } from '../reservas/provider-reserva';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-detalle-reserva-de-mi-servicio',
@@ -11,7 +12,7 @@ import { ReservaService } from '../reservas/provider-reserva';
 })
 export class DetalleReservaDeMiServicioComponent implements OnInit {
 
-  constructor(public activatedRoute:ActivatedRoute, private resService: ReservaService) { }
+  constructor(public activatedRoute:ActivatedRoute, private resService: ReservaService,private location: Location) { }
 
   id:any;
   currentReserva:any;
@@ -30,6 +31,9 @@ export class DetalleReservaDeMiServicioComponent implements OnInit {
     const nuevo_estado = new Estado(idEstado,estado);
     this.resService.updateStatusOfReserva(idEstado,nuevo_estado).subscribe((data)=>{window.location.reload();});
 
+  }
+  back(): void {
+    this.location.back()
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ReservaService } from "../reservas/provider-reserva";
 import { UsersService } from "../users/user.service";
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-mis-reservas',
@@ -17,7 +18,7 @@ export class MisReservasComponent implements OnInit {
   estados:any[]=[]
   servicios:any[]=[]
 
-  constructor(private resService:ReservaService,public userService:UsersService,public router:Router) {}
+  constructor(private resService:ReservaService,public userService:UsersService,public router:Router,private location: Location) {}
 
   ngOnInit(): void {
     this.myId=this.userService.getId()
@@ -35,6 +36,9 @@ export class MisReservasComponent implements OnInit {
       });
     });
 
+  }
+  back(): void {
+    this.location.back()
   }
 
 

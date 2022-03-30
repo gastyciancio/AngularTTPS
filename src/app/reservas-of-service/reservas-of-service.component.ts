@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Estado } from '../reservas/estado';
 import { ReservaService } from '../reservas/provider-reserva';
 import { ServicioService } from '../servicios/servicio/newServicio/provider-service';
-
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-reservas-of-service',
@@ -20,7 +19,7 @@ export class ReservasOfServiceComponent implements OnInit {
   estados:any[]=[];
   formaPagos:any[]=[];
 
-  constructor(private route: ActivatedRoute,private serService: ServicioService,private reservaService: ReservaService,public  http:HttpClient,public router:Router) { }
+  constructor(private route: ActivatedRoute,private serService: ServicioService,private reservaService: ReservaService,public  http:HttpClient,public router:Router,private location: Location) { }
 
   ngOnInit(): void {
     this.id=Number(this.route.snapshot.paramMap.get('id'))
@@ -53,6 +52,9 @@ export class ReservasOfServiceComponent implements OnInit {
     this.router.navigate(['verDetalleReservaDelServicio',id]);
 
 
+  }
+  back(): void {
+    this.location.back()
   }
 
 }

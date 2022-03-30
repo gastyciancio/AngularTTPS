@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-nuevo-servicio',
@@ -20,7 +21,7 @@ export class NuevoServicioComponent implements OnInit {
  @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
  @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
- constructor(private sanitizer: DomSanitizer,private serService: ServicioService) { }
+ constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private location: Location) { }
 
  onSubmit() { 
 
@@ -134,5 +135,8 @@ public processFile(event:any,posicion:number){
       this.myInputFileVariable2.nativeElement.value='';
       this.myInputFileVariable3.nativeElement.value='';
     });
-    }
+  }
+  back(): void {
+    this.location.back()
+  }
 }
