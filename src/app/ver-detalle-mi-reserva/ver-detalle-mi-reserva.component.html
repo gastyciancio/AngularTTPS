@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="nav-item">
+           <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+<br>
+<ul class="list-group">
+    <li class="list-group-item info">Descripcion: {{current_reserva.descripcion}}</li>
+    <li class="list-group-item info">Informacion: {{current_reserva.informacion}}</li>
+    <li class="list-group-item info">Fecha: {{current_reserva.fecha}}</li>
+    <li class="list-group-item info">Mail: {{current_reserva.mail}}</li>
+    <li class="list-group-item info">Telefono: {{current_reserva.telefono}}</li>
+    <li class="list-group-item info">Servicio: {{current_service.nombre}}</li>
+    <div class="info ">
+      <li class="list-group-item ">Estado: {{current_estado.estado}}  </li>
+      <br>
+      <button *ngIf="current_estado.estado=='Confirmada'" class="btn btn-primary botonvalorar" (click)="valorarServicio(current_service.id)">Valorar</button>   
+    </div>
+</ul>

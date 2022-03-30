@@ -11,18 +11,35 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   servicios:ListaServicios[]=[]
+  servicios_aux:ListaServicios[]=[]
+  filtroTipo:any="";
+  filtroNombre:any="";
 
   constructor(public user:UsersService,public  http:HttpClient,public router:Router) { }
   
   ngOnInit(): void {
 
     this.getAllServices().subscribe(data =>{
-      console.log(data)
       this.servicios=data
+      this.servicios_aux=data
     })
   }
   
-  
+  filtrarServiciosPorTipo():void{
+    this.resetearTabla()
+    this.servicios=this.servicios.filter(servicio => servicio.tipo==this.filtroTipo);
+
+  }
+
+  buscarServiciosPorNombre():void{
+    this.resetearTabla()
+    this.servicios=this.servicios.filter(servicio => servicio.nombre==this.filtroNombre);
+
+  }
+
+  resetearTabla():void{
+    this.servicios=this.servicios_aux
+  }
   
 
   logOut(){

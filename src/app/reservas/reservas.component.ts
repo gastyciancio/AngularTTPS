@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReservaService } from "./provider-reserva";
 import { Reserva } from "./reserva";
+import { Location } from '@angular/common'
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ReservasComponent {
   reserva_creada: any;
 
   constructor(public userService:UsersService, public router:Router,public activatedRoute:ActivatedRoute, public http:HttpClient,
-    public sanitizer: DomSanitizer,private resService: ReservaService) {}
+    public sanitizer: DomSanitizer,private resService: ReservaService,private location: Location) {}
 
   ngOnInit(): void {
      this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
@@ -42,6 +43,9 @@ export class ReservasComponent {
       this.fotos3=(this.sanitizer.bypassSecurityTrustUrl(data.imagen3));
       
     })
+    }
+    back(): void {
+      this.location.back()
     }
 
 

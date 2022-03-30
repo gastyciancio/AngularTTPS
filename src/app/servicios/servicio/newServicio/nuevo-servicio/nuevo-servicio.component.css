@@ -1,0 +1,17 @@
+.registerServicio{
+    text-align: center;
+ 
+}
+
+.form-label{
+    margin-right: 10px;
+}
+
+.previewfotos{
+    display: flex;
+}
+
+img{
+    margin-left: 5px;
+    margin-right: 5px;
+}

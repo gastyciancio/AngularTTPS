@@ -1,5 +1,5 @@
-.estado_del_servicio{
-    display: flex;
+.info{
+    text-align: center;
 }
 
 .botonvalorar{
@@ -7,3 +7,4 @@
     margin-left: 10px;
     font-size: 12px;
 }
+

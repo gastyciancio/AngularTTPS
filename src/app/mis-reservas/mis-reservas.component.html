@@ -1,29 +1,39 @@
-<a [routerLink]="['/home']">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+         </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+
 <h1>Mis reservas</h1>
 <table class="table">
     <thead>
       <tr>
         <th scope="col">Descripcion</th>
-        <th scope="col">Fecha</th>
         <th scope="col">Info</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Servicio</th>
+        <th scope="col">Detalle</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let reserva of mis_reservas; index as i">
         <td>{{reserva.descripcion}}</td>
-        <td>{{reserva.fecha}}</td>
         <td>{{reserva.informacion}}</td>
-        <td>{{servicios[i].nombre}}</td>
-        <td>
-            <div>
-                {{estados[i].estado}} 
-                <div *ngIf="estados[i].estado=='Confirmada'">
-                    <button (click)="valorarServicio(servicios[i].id)">Valorar</button>
-                </div>
-            </div>
-         </td>
+        <td><button class="btn btn-primary botonvalorar" (click)="verDetalleReserva(reserva.id)">Ver detalle</button></td>
+      
+        
       </tr>
       
     </tbody>

@@ -38,6 +38,15 @@ constructor(private http: HttpClient,public userService:UsersService) {}
         httpOptions.headers=header
         return this.http.get<Reserva[]>('http://localhost:8080/ttps-spring/usuario/'+idUser+'/reservas',httpOptions)
     }
+
+    /** GET reserva by id  */
+    getReservaById (idReserva:string): Observable<Reserva> {
+        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
+        return this.http.get<Reserva>('http://localhost:8080/ttps-spring/reserva/'+idReserva,httpOptions)
+    }
     
 
    /** POST: add a new reserva to the database */
