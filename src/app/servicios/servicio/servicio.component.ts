@@ -103,7 +103,7 @@ export class ServicioComponent implements OnInit {
       if(confirm('¿Estas seguro que quieres borrar el servicio?')){
           this.serService.deleteServicePaso1(servicio) 
             .subscribe( ()=>{ this.serService.deleteServicePaso2(servicio)
-                                  .subscribe(resultado=>this.mensaje="Servicio borrado, recargue la pagina para ver los cambios");
+                                  .subscribe(resultado=>{this.mensaje="Servicio borrado";window.location.reload()});
                         }
                       );
       };

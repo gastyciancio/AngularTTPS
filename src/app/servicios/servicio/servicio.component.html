@@ -37,7 +37,7 @@
         <img height="200px" [src]="fotos3[i]"/>
         <br>
         <br>
-        <div *ngIf="visibleFormularioEdit==true">
+        <div *ngIf="visibleFormularioEdit==true && model==servicio">
             <label >ZONA PARA VER Y EDITAR UN SERVICIO</label>
             <form (ngSubmit)="cambiarDatos()" #servicioForm="ngForm"   >
                 <div class="form-group">
@@ -83,8 +83,9 @@
             
             </form>
         
-            <h3> {{mensaje}}</h3>
+          
         </div>
+        <h3> {{mensaje}}</h3>
       
     </li>
    
