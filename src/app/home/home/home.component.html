@@ -23,7 +23,7 @@
             <a class="nav-link active" aria-current="page" [routerLink]="['/reservas']">Mis reservas</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link active cerrarsesion" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
+            <button class="btn btn-danger nav-link  cerrarsesion" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
           </li>
         </ul>
       </div>
@@ -83,7 +83,7 @@
         <td>{{servicio.tipo}}</td>
         <td>{{servicio.descripcion}}</td>
         <td>{{servicio.url}}</td>
-        <button class="boton" (click)="reservarServicio(servicio.id)">Detalle</button>
+        <button class="boton" (click)="reservarServicio(servicio.id)">Ver/Reservar</button>
       </tr>
       
     </tbody>
