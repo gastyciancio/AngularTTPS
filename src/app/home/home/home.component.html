@@ -23,7 +23,7 @@
             <a class="nav-link active" aria-current="page" [routerLink]="['/reservas']">Mis reservas</a>
           </li>
           <li class="nav-item">
-            <button class="nav-link active" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
+            <button class="nav-link active cerrarsesion" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
           </li>
         </ul>
       </div>
@@ -31,7 +31,7 @@
 </nav>
 
 <br>
-
+<div class="misbusquedas">
 <form class="custom-form d-flex" method="get">
   <input
     [(ngModel)]="filtroTipo"
@@ -44,8 +44,6 @@
   />
   
   <button class="btn btn-outline-success" type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
-  <button class="btn btn-danger" type="submit" (click)="resetearTabla()">Resetear</button>
-  
 </form>
 <br>
 
@@ -61,13 +59,15 @@
   />
   
   <button class="btn btn-outline-success" type="submit" (click)="buscarServiciosPorNombre()">Buscar por nombre</button>
-  <button class="btn btn-danger" type="submit" (click)="resetearTabla()">Resetear</button>
+  <button class="btn btn-danger botonresetear" type="submit" (click)="resetearTabla()">Resetear</button>
   
 </form>
+</div>
 
 
-<table class="table">
-    <thead>
+<table class="table table-borderless caption-top ">
+  <caption>Lista de servicios</caption>
+    <thead >
       <tr>
         <th scope="col">Nombre</th>
         <th scope="col">Tipo</th>
@@ -82,7 +82,7 @@
         <td>{{servicio.tipo}}</td>
         <td>{{servicio.descripcion}}</td>
         <td>{{servicio.url}}</td>
-        <button (click)="reservarServicio(servicio.id)">Detalle</button>
+        <button class="boton" (click)="reservarServicio(servicio.id)">Detalle</button>
       </tr>
       
     </tbody>
