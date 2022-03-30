@@ -1,78 +1,94 @@
-<a [routerLink]="['/home']">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <br>
-<h3> {{mensaje}}</h3>
-<label>TUS SERVICIOS</label>
+
+<h1>TUS SERVICIOS</h1>
 <ul>
-<li *ngFor="let servicio of servicios; let i = index"
-    class="list-group-item list-group-item-action" 
-    [class.active]="servicio ==model">
+    <li *ngFor="let servicio of servicios; let i = index"
+        class="list-group-item list-group-item-action" 
+        [class.active]="servicio ==model">
 
-     {{servicio.nombre}}
+        {{servicio.nombre}}
 
-     <button (click)="editarServicio(servicio)"> Ver/Editar</button>
-     <button (click)="borrarServicio(servicio)"> Borrar</button>
-     <button (click)="verReservas(servicio.id)">Ver reservas</button>
-     <br>
-     <br>
-     <img height="200px" [src]="fotos1[i]"/>
-     <br>
-     <br>
-     <img height="200px" [src]="fotos2[i]"/>
-     <br>
-     <br>
-     <img height="200px" [src]="fotos3[i]"/>
-     <br>
-     <br>
-</li>
+        <button class="btn btn-primary" (click)="editarServicio(servicio)"> Ver/Editar</button>
+        <button class="btn btn-primary" (click)="verReservas(servicio.id)">Ver reservas</button>
+        <button class="btn btn-danger" (click)="borrarServicio(servicio)"> Borrar</button>
+        <br>
+        <br>
+        <img height="200px" [src]="fotos1[i]"/>
+        <br>
+        <br>
+        <img height="200px" [src]="fotos2[i]"/>
+        <br>
+        <br>
+        <img height="200px" [src]="fotos3[i]"/>
+        <br>
+        <br>
+        <div *ngIf="visibleFormularioEdit==true">
+            <label >ZONA PARA VER Y EDITAR UN SERVICIO</label>
+            <form (ngSubmit)="cambiarDatos()" #servicioForm="ngForm"   >
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" id="Nombre" required [(ngModel)]="model.nombre" name="Nombre">
+                </div>
+        
+                <div class="form-group">
+                    <label for="name">Tipo</label>
+                    <input type="text" class="form-control" id="Tipo" required [(ngModel)]="model.tipo" name="Tipo">
+                </div>
+                <div class="form-group">
+                    <label for="name">Descripcion</label>
+                    <input type="text" class="form-control" required id="Descripcion"  [(ngModel)]="model.descripcion" name="Descripcion">
+                </div>
+                <div class="form-group">
+                    <label for="name">Url</label>
+                    <input type="text" class="form-control" id="Url" required [(ngModel)]="model.url" name="Url">
+                </div>
+                <div class="form-group">
+                    <label for="name">Twitter</label>
+                    <input type="text" class="form-control" id="Twitter" required [(ngModel)]="model.twitter" name="Twitter">
+                </div>
+                <div class="form-group">
+                    <label for="name">Instagram</label>
+                    <input type="text" class="form-control" id="Instagram" required [(ngModel)]="model.instagram" name="Instagram">
+                </div>
+                <div class="form-group">
+                    <label for="name">Whatsapp</label>
+                    <input type="text" class="form-control" id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
+                </div>
+                <div class="form-group">
+                    <label for="name">Imagenes</label>
+                    <br>
+                    <input type="file"  (change)="processFile($event,1)"  accept="image/*" #Imagenes1 required name="Imagenes1">
+                    <br>
+                    <input type="file"  (change)="processFile($event,2)"  accept="image/*" #Imagenes2 required name="Imagenes2">
+                    <br>
+                    <input type="file"  (change)="processFile($event,3)"  accept="image/*" #Imagenes3 required name="Imagenes3">
+                </div>
+           
+                <button type="submit" class="btn btn-success">Guardar cambios</button>
+            
+            </form>
+        
+            <h3> {{mensaje}}</h3>
+        </div>
+      
+    </li>
+   
 </ul>
 
-<div *ngIf="visibleFormularioEdit==true">
-    <label >ZONA PARA VER Y EDITAR UN SERVICIO</label>
-    <form (ngSubmit)="cambiarDatos()" #servicioForm="ngForm"   >
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="Nombre" required [(ngModel)]="model.nombre" name="Nombre">
-        </div>
 
-        <div class="form-group">
-            <label for="name">Tipo</label>
-            <input type="text" class="form-control" id="Tipo" required [(ngModel)]="model.tipo" name="Tipo">
-        </div>
-        <div class="form-group">
-            <label for="name">Descripcion</label>
-            <input type="text" class="form-control" required id="Descripcion"  [(ngModel)]="model.descripcion" name="Descripcion">
-        </div>
-        <div class="form-group">
-            <label for="name">Url</label>
-            <input type="text" class="form-control" id="Url" required [(ngModel)]="model.url" name="Url">
-        </div>
-        <div class="form-group">
-            <label for="name">Twitter</label>
-            <input type="text" class="form-control" id="Twitter" required [(ngModel)]="model.twitter" name="Twitter">
-        </div>
-        <div class="form-group">
-            <label for="name">Instagram</label>
-            <input type="text" class="form-control" id="Instagram" required [(ngModel)]="model.instagram" name="Instagram">
-        </div>
-        <div class="form-group">
-            <label for="name">Whatsapp</label>
-            <input type="text" class="form-control" id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
-        </div>
-        <div class="form-group">
-            <label for="name">Imagenes</label>
-            <br>
-            <input type="file"  (change)="processFile($event,1)"  accept="image/*" #Imagenes1 required name="Imagenes1">
-            <br>
-            <input type="file"  (change)="processFile($event,2)"  accept="image/*" #Imagenes2 required name="Imagenes2">
-            <br>
-            <input type="file"  (change)="processFile($event,3)"  accept="image/*" #Imagenes3 required name="Imagenes3">
-        </div>
-       
-   
-        <button type="submit" class="btn btn-success">Guardar cambios</button>
-       
-
-    </form>
-
-</div>
 
