@@ -1,44 +1,67 @@
-<nav>
-    
-    <a [routerLink]="['/servicios']">Mis servicios</a>
-    <br>
-    <a [routerLink]="['/nuevoServicio']">Nuevo servicio</a>
-    
-    <br>
-    <a [routerLink]="['/editar']">Editar perfil</a>
-    <br>
-    <a [routerLink]="['/reservas']">Mis reservas</a>
-    <button type="submit" (click)="logOut()">Cerrar sesion</button>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/servicios']">Mis servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/nuevoServicio']">Nuevo servicio</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/editar']">Editar perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/reservas']">Mis reservas</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link active" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
+          </li>
+        </ul>
+      </div>
+    </div>
 </nav>
+
 <br>
 
-<form class="custom-form" method="get">
+<form class="custom-form d-flex" method="get">
   <input
     [(ngModel)]="filtroTipo"
-    type="text"
+    class="form-control me-2"
+    aria-label="Search"
+    type="search"
     name="filtrotipo"
     placeholder="Tipo para filtrar"
     required="required"
   />
   
-  <button type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
-  <button type="submit" (click)="resetearTabla()">Resetear</button>
+  <button class="btn btn-outline-success" type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
+  <button class="btn btn-danger" type="submit" (click)="resetearTabla()">Resetear</button>
   
 </form>
 <br>
 
-<form class="custom-form" method="get">
+<form class="custom-form d-flex" method="get">
   <input
     [(ngModel)]="filtroNombre"
-    type="text"
+    class="form-control me-2"
+    aria-label="Search"
+    type="search"
     name="filtroNombre"
     placeholder="Nombre para buscar"
     required="required"
   />
   
-  <button type="submit" (click)="buscarServiciosPorNombre()">Buscar por nombre</button>
-  <button type="submit" (click)="resetearTabla()">Resetear</button>
+  <button class="btn btn-outline-success" type="submit" (click)="buscarServiciosPorNombre()">Buscar por nombre</button>
+  <button class="btn btn-danger" type="submit" (click)="resetearTabla()">Resetear</button>
   
 </form>
 
@@ -50,7 +73,7 @@
         <th scope="col">Tipo</th>
         <th scope="col">Descripcion</th>
         <th scope="col">URL</th>
-        <th scope="col">ver</th>
+        <th scope="col">Ver servicio/Reservar</th>
       </tr>
     </thead>
     <tbody>
@@ -59,8 +82,9 @@
         <td>{{servicio.tipo}}</td>
         <td>{{servicio.descripcion}}</td>
         <td>{{servicio.url}}</td>
-        <button (click)="reservarServicio(servicio.id)">ver</button>
+        <button (click)="reservarServicio(servicio.id)">Detalle</button>
       </tr>
       
     </tbody>
   </table>
+

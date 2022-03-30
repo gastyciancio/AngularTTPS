@@ -295,3 +295,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html { background-color: antiquewhite; }
+.mat-typography{
+  background-color: antiquewhite;
+}
