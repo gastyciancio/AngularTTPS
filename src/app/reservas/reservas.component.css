@@ -1,0 +1,22 @@
+
+.info{
+    text-align: center;
+}
+
+.infoFotos{
+    display: flex;
+}
+
+.foto{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form-label{
+    margin-right: 10px;
+}
+
+.registerReserva{
+    text-align: center;
+ 
+}
