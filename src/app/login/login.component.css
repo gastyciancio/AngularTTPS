@@ -34,7 +34,7 @@
     border: 0 none;
     background: #ebf5fc;
   }
-  .custom-form button {
+  .custom-form button, a {
     text-transform: uppercase;
     letter-spacing: 0.15em;
     border: none;
@@ -48,4 +48,9 @@
     border-radius: 1.5rem;
     box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
     cursor: pointer;
+  }
+
+  .registrarsebutton{
+    text-align: center;
+    margin-top: 10px;
   }
