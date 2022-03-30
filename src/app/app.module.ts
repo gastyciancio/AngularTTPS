@@ -20,6 +20,7 @@ import { ReservasOfServiceComponent } from './reservas-of-service/reservas-of-se
 import { MisReservasComponent } from './mis-reservas/mis-reservas.component';
 import { NewValoracionComponent } from './new-valoracion/new-valoracion.component';
 import { DetalleReservaDeMiServicioComponent } from './detalle-reserva-de-mi-servicio/detalle-reserva-de-mi-servicio.component';
+import { VerDetalleMiReservaComponent } from './ver-detalle-mi-reserva/ver-detalle-mi-reserva.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { DetalleReservaDeMiServicioComponent } from './detalle-reserva-de-mi-ser
     ReservasOfServiceComponent,
     MisReservasComponent,
     NewValoracionComponent,
-    DetalleReservaDeMiServicioComponent
+    DetalleReservaDeMiServicioComponent,
+    VerDetalleMiReservaComponent
     
     
   ],

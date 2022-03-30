@@ -23,26 +23,17 @@
     <thead>
       <tr>
         <th scope="col">Descripcion</th>
-        <th scope="col">Fecha</th>
         <th scope="col">Info</th>
-        <th scope="col">Servicio</th>
-        <th scope="col">Estado</th>
+        <th scope="col">Detalle</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let reserva of mis_reservas; index as i">
         <td>{{reserva.descripcion}}</td>
-        <td>{{reserva.fecha}}</td>
         <td>{{reserva.informacion}}</td>
-        <td>{{servicios[i].nombre}}</td>
-        <td>
-            <div class="estado_del_servicio">
-                {{estados[i].estado}} 
-                <div *ngIf="estados[i].estado=='Confirmada'">
-                    <button class="btn btn-primary botonvalorar" (click)="valorarServicio(servicios[i].id)">Valorar</button>
-                </div>
-            </div>
-         </td>
+        <td><button class="btn btn-primary botonvalorar" (click)="verDetalleReserva(reserva.id)">Ver detalle</button></td>
+      
+        
       </tr>
       
     </tbody>
