@@ -32,7 +32,7 @@ export class ServicioComponent implements OnInit {
    
    
     ngOnInit(): void {
-      this.getServices(+(this.userService.getToken().split("-",1)[0]));
+      this.getServices(+(this.userService.getId()));
     }
 
     back(): void {

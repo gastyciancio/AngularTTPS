@@ -32,6 +32,10 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
     return this.http.put(this.usuarioUrl+'usuario/'+this.getId(),user,httph);
   }
 
+  setId(id: any) {
+    this.cookies.set("user_id", id);
+  }
+
   setToken(token: string) {
     this.cookies.set("token", token);
   }
@@ -49,12 +53,12 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   logOut(){
     this.getUser();
     this.cookies.delete("token");
+    this.cookies.delete("user_id");
     this.router.navigateByUrl('/');
   }
   getUser(){
     const token=this.cookies.get("token");
-    const splited=token.split('-');
-    const id_user=splited[0];
+    const id_user=this.cookies.get("user_id")
     const httph = {
       headers: new HttpHeaders({
         'token': token
@@ -63,9 +67,7 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   
   }
   getId(){
-    const token=this.cookies.get("token");
-    const splited=token.split('-');
-    const id_user=splited[0];
+    const id_user=this.cookies.get("user_id");
     return id_user
   }
 

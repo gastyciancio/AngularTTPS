@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   mensaje:string=''
-  email: string=''
+  user_name: string=''
   password: string=''
 
   constructor(public userService:UsersService, public router:Router) {}
@@ -17,7 +17,7 @@ export class LoginComponent {
   login() {
     const httph = {
       headers: new HttpHeaders({
-        'usuario': this.email,
+        'usuario': this.user_name,
         'clave':this.password
       }),
     }; 
@@ -25,6 +25,7 @@ export class LoginComponent {
     this.userService.login(httph).subscribe(
       data =>{console.log(data)
               this.userService.setToken(data.token);
+              this.userService.setId(data.userid);
               this.router.navigateByUrl('/home');
 
       }

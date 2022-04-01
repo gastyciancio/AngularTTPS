@@ -32,7 +32,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** GET reservas of an user from the server */
     getReservasOfUser (idUser:string): Observable<Reserva[]> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -41,7 +41,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
     /** GET reserva by id  */
     getReservaById (idReserva:string): Observable<Reserva> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -51,7 +51,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** POST: add a new reserva to the database */
     addReserva (reserva: Reserva, idServicio:any,formapago:any): Observable<Reserva> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header

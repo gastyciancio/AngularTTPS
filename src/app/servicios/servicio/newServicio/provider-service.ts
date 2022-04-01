@@ -27,7 +27,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** GET servicios of an user from the server */
     getServiciosOfUser (idUser:string): Observable<Service[]> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -37,7 +37,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** POST: add a new service to the database */
     addService (service: Service): Observable<Service> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -68,7 +68,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
        
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         return this.http.get<Reserva[]>(this.servicioUrl+'/'+id+"/reservas", httpOptions)
       
