@@ -96,6 +96,7 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   }
   getId(){
     const id_user=this.cookies.get("user_id");
+    if (id_user=="") return "0"
     return id_user
   }
 
