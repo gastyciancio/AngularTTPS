@@ -30,21 +30,14 @@ export class EditarUsuarioComponent implements OnInit{
           this.name=this.x.nombre;
           this.username=this.x.nombre_usuario;
           this.lastname=this.x.apellido;
-
-
-          })// aca esta la data del usuario
-        
-        
-      
+          },
+        err =>{ if(err.status==401) this.router.navigate(['/'])})
     }
 
     back(): void {
       this.location.back()
     }
   
-  
-
-
   editar() {
 
     if (this.email=="" || this.password=="" || this.name=="" || this.username=="" || this.lastname=="") {  this.mensaje="Complete todos los datos por favor"; return }
@@ -58,7 +51,8 @@ export class EditarUsuarioComponent implements OnInit{
 
     this.userService.edit(user,httph).subscribe(
       data =>{console.log(data);this.mensaje="Se ha cambiado su informacion";return }
-    , err =>{this.mensaje="El mail/nombre de usuario ya existe"; return}
+    , err =>{ if(err.status==401) this.router.navigate(['/']);
+      this.mensaje="El mail/nombre de usuario ya existe"; return}
     )
   }
 }

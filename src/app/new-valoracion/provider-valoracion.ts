@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UsersService } from 'src/app/users/user.service';
-import { Reserva } from 'src/app/reservas/reserva';
 import { Valoracion } from './valoracion';
 
 let header = new HttpHeaders();
@@ -15,18 +14,13 @@ header=header.set( 'Content-Type', 'application/json').set(
 
 let httpOptions = {
     headers: header
-   };
-   
-
+};
 
 @Injectable()
 export class ValoracionService {
 valoracionUrl = 'http://localhost:8080/ttps-spring/valoracion'; // URL to web api
 
 constructor(private http: HttpClient,public userService:UsersService) {}
-
-  
-    
 
    /** POST: add a new service to the database */
     addValoracion (valoracion: Valoracion, idServicio:any): Observable<Valoracion> {
@@ -38,7 +32,5 @@ constructor(private http: HttpClient,public userService:UsersService) {}
         httpOptions.headers=header
         return this.http.post<Valoracion>(this.valoracionUrl, valoracion, httpOptions)
     }
-
-    
 
 }

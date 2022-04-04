@@ -45,21 +45,37 @@ constructor(private http: HttpClient,public userService:UsersService) {}
     }
 
     updateService(service: Service): Observable<Service> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Service>(this.servicioUrl+'/'+service.id, service, httpOptions)
       
     }
 
     deleteServicePaso1(service: Service): Observable<Service> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Service>(this.servicioUrl+'/borrar/'+service.id, service, httpOptions)
       
     }
 
     deleteServicePaso2(service: Service): Observable<Service> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Service>(this.servicioUrl+'/borrar2/'+service.id, service, httpOptions)
       
     }
 
     getServiceById(id_service: any): Observable<Service> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.get<Service>(this.servicioUrl+'/'+id_service, httpOptions)
       
     }

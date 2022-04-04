@@ -29,7 +29,8 @@ export class LoginComponent {
               this.router.navigateByUrl('/home');
 
       }
-    , err =>{this.mensaje="Usuario o contraseña incorrectos"; return}
+    , err =>{if(err.status==401) this.router.navigate(['/'])
+      this.mensaje="Usuario o contraseña incorrectos"; return}
     )
   }
 }

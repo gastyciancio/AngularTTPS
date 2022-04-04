@@ -4,7 +4,5 @@ export class Estado {
         public  id:any,
 
         public  estado:string,
-        
-        
         ) { }
 }

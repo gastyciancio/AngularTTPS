@@ -24,7 +24,8 @@ export class MisReservasComponent implements OnInit {
     this.resService.getReservasOfUser(this.myId).subscribe(data =>{
       this.mis_reservas=data;
 
-    });
+    },
+    err =>{ if(err.status==401) this.router.navigate(['/'])});
 
   }
   back(): void {

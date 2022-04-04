@@ -8,6 +8,5 @@ export class Reserva {
         public  mail:string,
         public  telefono:string,
         public  fecha:string,
-        
         ) { }
 }
