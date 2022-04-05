@@ -14,12 +14,14 @@ export class NewValoracionComponent implements OnInit {
   model = new Valoracion(0,"0","0","0","0","0");
   mensaje:string=""
   idServicio:any;
+  idReserva:any;
 
 
   constructor(private valService:ValoracionService,public activatedRoute:ActivatedRoute,private location: Location,public router:Router ) { }
 
   ngOnInit(): void {
     this.idServicio=Number(this.activatedRoute.snapshot.paramMap.get('id'))
+    this.idReserva=Number(this.activatedRoute.snapshot.paramMap.get('idR'))
   }
 
   onSubmit() { 
@@ -48,7 +50,7 @@ export class NewValoracionComponent implements OnInit {
     } as Valoracion;
   
   
-    this.valService.addValoracion(newValoracion, this.idServicio)
+    this.valService.addValoracion(newValoracion, this.idServicio,this.idReserva)
     .subscribe(  (res) => {
         console.log(res);
         this.model = new Valoracion(0,"0","0","0","0","0");

@@ -30,8 +30,8 @@ export class VerDetalleMiReservaComponent implements OnInit {
    
   }
 
-  valorarServicio(idServicio:any):void{
-    this.router.navigate(['create_valoracion',idServicio]);
+  valorarServicio(idServicio:any, idReserva:any):void{
+    this.router.navigate(['create_valoracion',idServicio, idReserva]);
   }
 
   back(): void {

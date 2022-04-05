@@ -23,7 +23,7 @@ export class LoginComponent {
     }; 
     
     this.userService.login(httph).subscribe(
-      data =>{console.log(data)
+      data =>{
               this.userService.setToken(data.token);
               this.userService.setId(data.userid);
               this.router.navigateByUrl('/home');

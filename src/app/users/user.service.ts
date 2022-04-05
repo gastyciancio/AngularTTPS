@@ -41,10 +41,7 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
     return this.http.post(this.usuarioUrl+"formaPago",null,httpOptions)
   }
   register(user: any): Observable<any> {
-    header=header.set("idPersona",this.getId());
-    httpOptions.headers=header
-    header=header.set("token",this.getToken());
-    httpOptions.headers=header
+ 
     return this.http.post(this.usuarioUrl+"usuario", user);
   }
   login(httph: any): Observable<any> {

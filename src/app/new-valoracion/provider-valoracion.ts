@@ -23,12 +23,14 @@ valoracionUrl = 'http://localhost:8080/ttps-spring/valoracion'; // URL to web ap
 constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** POST: add a new service to the database */
-    addValoracion (valoracion: Valoracion, idServicio:any): Observable<Valoracion> {
+    addValoracion (valoracion: Valoracion, idServicio:any, idReserva:any): Observable<Valoracion> {
         header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
         header=header.set("idServicio",idServicio.toString());
+        httpOptions.headers=header
+        header=header.set("idReserva",idReserva.toString());
         httpOptions.headers=header
         return this.http.post<Valoracion>(this.valoracionUrl, valoracion, httpOptions)
     }

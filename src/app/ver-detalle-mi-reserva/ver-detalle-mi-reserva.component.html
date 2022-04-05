@@ -27,6 +27,6 @@
     <div class="info ">
       <li class="list-group-item ">Estado: {{current_estado.estado}}  </li>
       <br>
-      <button *ngIf="current_estado.estado=='Confirmada'" class="btn btn-primary botonvalorar" (click)="valorarServicio(current_service.id)">Valorar</button>   
+      <button *ngIf="current_estado.estado=='Confirmada'" class="btn btn-primary botonvalorar" (click)="valorarServicio(current_service.id,current_reserva.id)">Valorar</button>   
     </div>
 </ul>
