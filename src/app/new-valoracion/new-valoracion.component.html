@@ -22,7 +22,8 @@
     <form  (ngSubmit)="onSubmit()" #servicioForm="ngForm">
         <div class="div-section mb-3">
           <label class="form-label" for="name">Limpieza</label>
-          <input 
+          <input
+            value="0" 
             type="number" 
             id="limpieza" 
             required 
@@ -33,6 +34,7 @@
         <div class=" div-section mb-3">
           <label class="form-label" for="name">Simpatia</label>
           <input 
+            value="0" 
             type="number" 
             id="simpatia" 
             required 
@@ -41,7 +43,8 @@
         </div>
         <div class=" div-section mb-3">
           <label class="form-label" for="name">Calidad/Precio</label>
-          <input type="number" 
+          <input type="number"
+            value="0"  
             required id="calidad_precio"  
             [(ngModel)]="model.calidad_precio" 
             name="calidad_precio">
@@ -49,6 +52,7 @@
         <div class=" div-section mb-3">
           <label class="form-label" for="name">Sabor</label>
           <input 
+            value="0" 
             type="number" 
             id="sabor" 
             required 
@@ -58,6 +62,7 @@
         <div class=" div-section mb-3">
           <label class="form-label" for="name">Diseno</label>
           <input 
+            value="0" 
             type="number" 
             id="diseno" 
             required 

@@ -27,8 +27,10 @@ export class ReservasOfServiceComponent implements OnInit {
       this.servicio=data
       this.serService.getReservasforServiceById(this.id).subscribe((reservas: any[]) =>{
         this.reservas=reservas;
-      })
-    });
+      },
+      err =>{if(err.status==401) this.router.navigate(['/'])})
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
 
   }
 
@@ -36,7 +38,8 @@ export class ReservasOfServiceComponent implements OnInit {
   
       this.reservaService.getStatusOfReserva(id_reserva).subscribe((status)=>{
         this.estados[pos]=status;
-    });
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
 
   }
 
@@ -44,7 +47,8 @@ export class ReservasOfServiceComponent implements OnInit {
     this.reservaService.getFormaPagoOfReserva(id_reserva).subscribe((formaPago)=>{
       this.formaPagos[pos]=formaPago;
     
-    });
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
   }
   
 

@@ -4,7 +4,5 @@ export class FormaPago {
         public  id:any,
 
         public  forma_pago:string,
-       
-        
         ) { }
 }

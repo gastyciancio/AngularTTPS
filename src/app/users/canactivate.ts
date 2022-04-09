@@ -13,7 +13,6 @@ export class CanActivateViaAuthGuard implements CanActivate {
     canActivate() {
         
         if (!this.userService.isLogged()) {
-            console.log('No estás logueado');
             this.router.navigateByUrl('/');
             return false;
         }

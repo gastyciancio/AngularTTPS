@@ -36,23 +36,44 @@ export class ReservasComponent {
 
   ngOnInit(): void {
      this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
-    this.getAllServices().subscribe(data =>{
-      this.servicio=data
-      this.fotos1=(this.sanitizer.bypassSecurityTrustUrl(data.imagen1));
-      this.fotos2=(this.sanitizer.bypassSecurityTrustUrl(data.imagen2));
-      this.fotos3=(this.sanitizer.bypassSecurityTrustUrl(data.imagen3));
-      
-    })
+    this.getAllServices().subscribe(
+      data =>{
+        this.servicio=data
+        this.fotos1=(this.sanitizer.bypassSecurityTrustUrl(data.imagen1));
+        this.fotos2=(this.sanitizer.bypassSecurityTrustUrl(data.imagen2));
+        this.fotos3=(this.sanitizer.bypassSecurityTrustUrl(data.imagen3));
+    },
+      err =>{if(err.status==401) this.router.navigate(['/'])});
+
     }
+
     back(): void {
       this.location.back()
     }
 
 
     getAllServices():Observable<ListaServicios>{
+
+      let header = new HttpHeaders();
+      header=header.set( 'Content-Type', 'application/json').set(
+      'Authorization', 'my-auth-token').set(
+      'Access-Control-Allow-Origin', '*').set(
+      'Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS').set(
+      'Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token')
+  
+      let httpOptions = {
+          headers: header
+        };
+  
+      header=header.set("idPersona",this.userService.getId());
+      httpOptions.headers=header
+      header=header.set("token",this.userService.getToken());
+      httpOptions.headers=header
+      
+
       let id_string=String(this.id)
       let dir="http://localhost:8080/ttps-spring/servicio/"+id_string;
-      return this.http.get<ListaServicios>(dir)
+      return this.http.get<ListaServicios>(dir,httpOptions)
   
     }
     reservarServicio(id:any){
@@ -70,6 +91,7 @@ export class ReservasComponent {
       
       const httph = {
         headers: new HttpHeaders({
+          'token' : this.userService.getToken(),
           'idPersona': this.userService.getId(),
           'idServicio': String(id)
         }),

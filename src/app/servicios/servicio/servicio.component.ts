@@ -32,7 +32,7 @@ export class ServicioComponent implements OnInit {
    
    
     ngOnInit(): void {
-      this.getServices(+(this.userService.getToken().split("-",1)[0]));
+      this.getServices(+(this.userService.getId()));
     }
 
     back(): void {
@@ -42,19 +42,20 @@ export class ServicioComponent implements OnInit {
     getServices(id: number
        ): void {
 
-      this.serService.getServiciosOfUser(id.toString())
-      .subscribe(servicios => 
-        {
-          let pos:number=0;
-          servicios.forEach(servicio => {
-              this.servicios.push(servicio);
-              this.fotos1[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen1));
-              this.fotos2[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen2));
-              this.fotos3[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen3));
-              pos=pos+1;
-          })
-        }
-      );
+        this.serService.getServiciosOfUser(id.toString())
+        .subscribe(servicios => 
+          {
+            let pos:number=0;
+            servicios.forEach(servicio => {
+                this.servicios.push(servicio);
+                this.fotos1[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen1));
+                this.fotos2[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen2));
+                this.fotos3[pos]=(this.sanitizer.bypassSecurityTrustUrl(servicio.imagen3));
+                pos=pos+1;
+            })
+          },
+          err =>{if(err.status==401) this.router.navigate(['/'])});
+        
     }
 
     extraerBase64 = async ($event: any) => new Promise((resolve) => {
@@ -108,9 +109,11 @@ export class ServicioComponent implements OnInit {
       if(confirm('¿Estas seguro que quieres borrar el servicio?')){
           this.serService.deleteServicePaso1(servicio) 
             .subscribe( ()=>{ this.serService.deleteServicePaso2(servicio)
-                                  .subscribe(resultado=>{this.mensaje="Servicio borrado";window.location.reload()});
-                        }
-                      );
+                                  .subscribe(resultado=>{this.mensaje="Servicio borrado";window.location.reload()},
+                                  err =>{if(err.status==401) this.router.navigate(['/'])});
+                        },
+                        err =>{if(err.status==401) this.router.navigate(['/'])});
+                      
       };
   }
 
@@ -176,14 +179,13 @@ export class ServicioComponent implements OnInit {
                 this.myInputFileVariable1.nativeElement.value='';
                 this.myInputFileVariable2.nativeElement.value='';
                 this.myInputFileVariable3.nativeElement.value='';
-              }
-             );
+              },
+              err =>{if(err.status==401) this.router.navigate(['/'])});
+             
       }
 
       verReservas(id:any){
         this.router.navigate(['see_reservas',id]);
-    
-    
       }
   }
   

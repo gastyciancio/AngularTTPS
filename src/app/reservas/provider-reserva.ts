@@ -32,7 +32,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** GET reservas of an user from the server */
     getReservasOfUser (idUser:string): Observable<Reserva[]> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -41,7 +41,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
     /** GET reserva by id  */
     getReservaById (idReserva:string): Observable<Reserva> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -51,7 +51,7 @@ constructor(private http: HttpClient,public userService:UsersService) {}
 
    /** POST: add a new reserva to the database */
     addReserva (reserva: Reserva, idServicio:any,formapago:any): Observable<Reserva> {
-        header=header.set("idPersona",this.userService.getToken().split("-",1)[0]);
+        header=header.set("idPersona",this.userService.getId());
         httpOptions.headers=header
         header=header.set("token",this.userService.getToken());
         httpOptions.headers=header
@@ -66,41 +66,73 @@ constructor(private http: HttpClient,public userService:UsersService) {}
    
 
     updateReserva(reserva: Reserva): Observable<Reserva> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Reserva>(this.reservaUrl+'/'+reserva.id, reserva, httpOptions)
       
     }
 
     deleteReserva(reserva: Reserva): Observable<Reserva> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Reserva>(this.reservaUrl+'/borrar/'+reserva.id, reserva, httpOptions)
       
     }
 
     /** GET status */
     getAllStatus(): Observable<Estado[]> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         
         return this.http.get<Estado[]>('http://localhost:8080/ttps-spring/estado',httpOptions)
     }
 
     /** GET formaPagos */
     getAllFormaPagos(): Observable<FormaPago[]> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         
         return this.http.get<FormaPago[]>('http://localhost:8080/ttps-spring/formaPago/',httpOptions)
     }
 
     updateStatusOfReserva(idEstado: any, estado:Estado): Observable<Estado> {
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.put<Estado>(this.estadoUrl+'/'+idEstado, estado, httpOptions)
       
     }
 
     getStatusOfReserva(idReserva:any): Observable<Estado>{
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.get<Estado>('http://localhost:8080/ttps-spring/estado/'+idReserva,httpOptions)
     }
 
     getFormaPagoOfReserva(idReserva:any): Observable<FormaPago>{
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.get<FormaPago>('http://localhost:8080/ttps-spring/formaPago/'+idReserva,httpOptions)
     }
 
     getServicesFromReserva(idReserva:any): Observable<Service>{
+        header=header.set("idPersona",this.userService.getId());
+        httpOptions.headers=header
+        header=header.set("token",this.userService.getToken());
+        httpOptions.headers=header
         return this.http.get<Service>('http://localhost:8080/ttps-spring/reserva/'+idReserva+'/servicio',httpOptions)
     }
 

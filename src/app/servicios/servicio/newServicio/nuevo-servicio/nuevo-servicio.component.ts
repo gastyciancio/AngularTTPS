@@ -3,6 +3,7 @@ import { Service } from '../service'
 import { ServicioService } from '../provider-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Location } from '@angular/common'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-servicio',
@@ -21,7 +22,7 @@ export class NuevoServicioComponent implements OnInit {
  @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
  @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
 
- constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private location: Location) { }
+ constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private location: Location,public router:Router) { }
 
  onSubmit() { 
 
@@ -126,15 +127,14 @@ public processFile(event:any,posicion:number){
   
     this.serService.addService(newServicio)
     .subscribe(  (res) => {
-      console.log("se agrego el servicio");
-      console.log(res);
       this.model=new Service(0," "," "," "," "," "," "," "," "," "," ");
       this.mensaje="Servicio agregado";
       this.clearImage()
       this.myInputFileVariable1.nativeElement.value='';
       this.myInputFileVariable2.nativeElement.value='';
       this.myInputFileVariable3.nativeElement.value='';
-    });
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
   }
   back(): void {
     this.location.back()

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   mensaje:string=''
-  email: string=''
+  user_name: string=''
   password: string=''
 
   constructor(public userService:UsersService, public router:Router) {}
@@ -17,18 +17,20 @@ export class LoginComponent {
   login() {
     const httph = {
       headers: new HttpHeaders({
-        'usuario': this.email,
+        'usuario': this.user_name,
         'clave':this.password
       }),
     }; 
     
     this.userService.login(httph).subscribe(
-      data =>{console.log(data)
+      data =>{
               this.userService.setToken(data.token);
+              this.userService.setId(data.userid);
               this.router.navigateByUrl('/home');
 
       }
-    , err =>{this.mensaje="Usuario o contraseña incorrectos"; return}
+    , err =>{if(err.status==401) this.router.navigate(['/'])
+      this.mensaje="Usuario o contraseña incorrectos"; return}
     )
   }
 }

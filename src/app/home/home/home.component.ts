@@ -22,7 +22,8 @@ export class HomeComponent implements OnInit {
     this.getAllServices().subscribe(data =>{
       this.servicios=data
       this.servicios_aux=data
-    })
+    },
+    err =>{ if(err.status==401) this.router.navigate(['/'])})
   }
   
   filtrarServiciosPorTipo():void{
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
 
   resetearTabla():void{
     this.servicios=this.servicios_aux
+   
   }
   
 
@@ -47,9 +49,25 @@ export class HomeComponent implements OnInit {
   }
 
   getAllServices():Observable<ListaServicios[]>{
+
+    let header = new HttpHeaders();
+    header=header.set( 'Content-Type', 'application/json').set(
+    'Authorization', 'my-auth-token').set(
+    'Access-Control-Allow-Origin', '*').set(
+    'Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS').set(
+    'Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token')
+
+    let httpOptions = {
+        headers: header
+      };
+
+    header=header.set("idPersona",this.user.getId());
+    httpOptions.headers=header
+    header=header.set("token",this.user.getToken());
+    httpOptions.headers=header
     
     let dir="http://localhost:8080/ttps-spring/servicio";
-    return this.http.get<ListaServicios[]>(dir)
+    return this.http.get<ListaServicios[]>(dir,httpOptions)
 
   }
 
@@ -58,7 +76,5 @@ export class HomeComponent implements OnInit {
 
 
   }
-
-  
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ValoracionService } from './provider-valoracion';
 import { Valoracion } from './valoracion';
 import { Location } from '@angular/common'
@@ -14,12 +14,14 @@ export class NewValoracionComponent implements OnInit {
   model = new Valoracion(0,"0","0","0","0","0");
   mensaje:string=""
   idServicio:any;
+  idReserva:any;
 
 
-  constructor(private valService:ValoracionService,public activatedRoute:ActivatedRoute,private location: Location ) { }
+  constructor(private valService:ValoracionService,public activatedRoute:ActivatedRoute,private location: Location,public router:Router ) { }
 
   ngOnInit(): void {
     this.idServicio=Number(this.activatedRoute.snapshot.paramMap.get('id'))
+    this.idReserva=Number(this.activatedRoute.snapshot.paramMap.get('idR'))
   }
 
   onSubmit() { 
@@ -48,12 +50,13 @@ export class NewValoracionComponent implements OnInit {
     } as Valoracion;
   
   
-    this.valService.addValoracion(newValoracion, this.idServicio)
+    this.valService.addValoracion(newValoracion, this.idServicio,this.idReserva)
     .subscribe(  (res) => {
         console.log(res);
         this.model = new Valoracion(0,"0","0","0","0","0");
         this.mensaje="Valoracion agregada";
-      }, err =>{this.mensaje="Ya calificaste este servicio";return});
+      }, err =>{if(err.status==401) this.router.navigate(['/'])
+        this.mensaje="Ya calificaste este servicio";return});
     }
     back(): void {
       this.location.back()

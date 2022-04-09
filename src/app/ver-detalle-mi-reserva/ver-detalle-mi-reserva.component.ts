@@ -21,16 +21,17 @@ export class VerDetalleMiReservaComponent implements OnInit {
     this.id=Number(this.activatedRoute.snapshot.paramMap.get('id'))
     this.resService.getReservaById(this.id).subscribe(data =>{
       this.current_reserva=data;
-      this.resService.getStatusOfReserva(data.id).subscribe((status)=>this.current_estado=status)
-      this.resService.getServicesFromReserva(data.id).subscribe((ser)=>this.current_service=ser)
+      this.resService.getStatusOfReserva(data.id).subscribe((status)=>{this.current_estado=status},  err =>{if(err.status==401) this.router.navigate(['/'])});
+      this.resService.getServicesFromReserva(data.id).subscribe((ser)=>{this.current_service=ser},  err =>{if(err.status==401) this.router.navigate(['/'])});
 
-    });
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
 
    
   }
 
-  valorarServicio(idServicio:any):void{
-    this.router.navigate(['create_valoracion',idServicio]);
+  valorarServicio(idServicio:any, idReserva:any):void{
+    this.router.navigate(['create_valoracion',idServicio, idReserva]);
   }
 
   back(): void {

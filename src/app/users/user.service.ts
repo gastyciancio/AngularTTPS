@@ -5,6 +5,17 @@ import { CookieService } from "ngx-cookie-service";
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 
+let header = new HttpHeaders();
+header=header.set( 'Content-Type', 'application/json').set(
+'Authorization', 'my-auth-token').set(
+'Access-Control-Allow-Origin', '*').set(
+'Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, DELETE, OPTIONS').set(
+'Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token')
+
+let httpOptions = {
+  headers: header
+ };
+
 @Injectable({
   providedIn: "root"
 })
@@ -15,13 +26,22 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
 
 
   registerReserva(reserva:any,httph:any): Observable<any>{
-    return this.http.post(this.usuarioUrl+"reserva",reserva,httph);
+    header=header.set("idPersona",this.getId());
+    httpOptions.headers=header
+    header=header.set("token",this.getToken());
+    httpOptions.headers=header
+    return this.http.post(this.usuarioUrl+"reserva",reserva,httpOptions);
 
   }
   registerFormaPago(formaPago:any,httph:any):Observable<any>{
-    return this.http.post(this.usuarioUrl+"formaPago",null,httph)
+    header=header.set("idPersona",this.getId());
+    httpOptions.headers=header
+    header=header.set("token",this.getToken());
+    httpOptions.headers=header
+    return this.http.post(this.usuarioUrl+"formaPago",null,httpOptions)
   }
   register(user: any): Observable<any> {
+ 
     return this.http.post(this.usuarioUrl+"usuario", user);
   }
   login(httph: any): Observable<any> {
@@ -29,7 +49,15 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   }
 
   edit(user:any,httph:any):Observable<any>{
-    return this.http.put(this.usuarioUrl+'usuario/'+this.getId(),user,httph);
+    header=header.set("idPersona",this.getId());
+    httpOptions.headers=header
+    header=header.set("token",this.getToken());
+    httpOptions.headers=header
+    return this.http.put(this.usuarioUrl+'usuario/'+this.getId(),user,httpOptions);
+  }
+
+  setId(id: any) {
+    this.cookies.set("user_id", id);
   }
 
   setToken(token: string) {
@@ -49,23 +77,23 @@ constructor(private http: HttpClient,private cookies: CookieService,private rout
   logOut(){
     this.getUser();
     this.cookies.delete("token");
+    this.cookies.delete("user_id");
     this.router.navigateByUrl('/');
   }
   getUser(){
-    const token=this.cookies.get("token");
-    const splited=token.split('-');
-    const id_user=splited[0];
-    const httph = {
-      headers: new HttpHeaders({
-        'token': token
-      })}
-    return this.http.get(this.usuarioUrl+"usuario/"+id_user,httph);
+    header=header.set("idPersona",this.getId());
+    httpOptions.headers=header
+    header=header.set("token",this.getToken());
+    httpOptions.headers=header
+
+    const id_user=this.cookies.get("user_id")
+    
+    return this.http.get(this.usuarioUrl+"usuario/"+id_user,httpOptions);
   
   }
   getId(){
-    const token=this.cookies.get("token");
-    const splited=token.split('-');
-    const id_user=splited[0];
+    const id_user=this.cookies.get("user_id");
+    if (id_user=="") return "0"
     return id_user
   }
 
