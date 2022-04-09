@@ -1,0 +1,91 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/servicios']">Mis servicios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/nuevoServicio']">Nuevo servicio</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/editar']">Editar perfil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/reservas']">Mis reservas</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-danger nav-link  cerrarsesion" aria-current="page" type="submit" (click)="logOut()">Cerrar sesion</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+<br>
+<div class="misbusquedas">
+<form class="custom-form d-flex" method="get">
+  
+  <input
+    [(ngModel)]="filtroTipo"
+    class="form-control me-2"
+    aria-label="Search"
+    type="search"
+    name="filtrotipo"
+    placeholder="Tipo para filtrar"
+    required="required"
+  />
+  
+  <button class="btn btn-outline-success" type="submit" (click)="filtrarServiciosPorTipo()">Filtrar por tipo</button>
+</form>
+<br>
+
+<form class="custom-form d-flex" method="get">
+  <input
+    [(ngModel)]="filtroNombre"
+    class="form-control me-2"
+    aria-label="Search"
+    type="search"
+    name="filtroNombre"
+    placeholder="Nombre para buscar"
+    required="required"
+  />
+  
+  <button class="btn btn-outline-success" type="submit" (click)="buscarServiciosPorNombre()">Buscar por nombre</button>
+  <button class="btn btn-danger botonresetear" type="submit" (click)="resetearTabla()">Resetear</button>
+  
+</form>
+</div>
+
+
+<table class="table table-borderless caption-top ">
+  <caption>Lista de servicios rankeados</caption>
+    <thead >
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">URL</th>
+        <th scope="col">Ver servicio/Reservar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let servicio of servicios">
+        <td>{{servicio.nombre}}</td>
+        <td>{{servicio.tipo}}</td>
+        <td>{{servicio.descripcion}}</td>
+        <td>{{servicio.url}}</td>
+        <button class="boton" (click)="reservarServicio(servicio.id)">Ver/Reservar</button>
+      </tr>
+      
+    </tbody>
+  </table>
+

@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+         </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<ul class="list-group">
+
+  <li class="list-group-item info">Nombre: {{servicio.nombre}}</li>
+  <li class="list-group-item info">Tipo: {{servicio.tipo}}</li>
+  <li class="list-group-item info">Descripcion: {{servicio.descripcion}}</li>
+  <li class="list-group-item info">Twitter: {{servicio.twitter}}</li>
+  <li class="list-group-item info">Whatsapp: {{servicio.whatsapp}}</li>
+  <li class="list-group-item info">Url: {{servicio.url}}</li>
+</ul>
+<br>
+
+<div class="infoFotos">
+  <img class="foto" height="200px" [src]="fotos1"/>
+  <br>
+  <br>
+  <img class="foto" height="200px" [src]="fotos2"/>
+  <br>
+  <br>
+  <img class="foto" height="200px" [src]="fotos3"/>
+  <br>
+</div>
+<br>
+<button class="btn btn-primary" (click)="reservarServicio(servicio.id)">Reservar</button>
+<div class="registerReserva" *ngIf="visibleReserva==true">
+    <br>
+    <form class="custom-form" method="post">
+      <div class="mb-3">
+        <label for="email" class="form-label">Descripcion</label>
+        <input
+          [(ngModel)]="reserva.descripcion"
+          type="text"
+          name="descripcion"
+          required="required"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Informacion</label>
+        <input
+          [(ngModel)]="reserva.informacion"
+          type="text"
+          name="informacion"
+          required="required"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Mail</label>
+        <input
+          [(ngModel)]="reserva.mail"
+          type="mail"
+          name="mail"
+          required="required"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Telefono</label>
+        <input
+          [(ngModel)]="reserva.telefono"
+          type="text"
+          name="telefono"
+          required="required"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Fecha</label>
+        <input 
+          type="date"  
+          name="fecha"
+          [(ngModel)]="reserva.fecha"
+          min="Date.today()">
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Forma de pago</label>
+        <input
+          [(ngModel)]="forma_pago"
+          type="text"
+          name="formapago"
+          required="required"
+        />
+      </div>
+        <button class="btn btn-success" type="submit" (click)="registrarReserva(servicio.id)">Reservar!</button>
+        <br>
+        <h1> {{mensaje}}</h1>
+        <br>
+        <button class="btn btn-danger" (click)="cancelarReserva(servicio.id)">Salir de reserva</button>
+       
+        
+      </form>
+</div>

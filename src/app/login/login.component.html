@@ -1,0 +1,24 @@
+
+<div class="login">
+  
+  <form class="custom-form" method="post">
+    <h1>Login</h1>
+    <input
+      type="text"
+      [(ngModel)]="user_name"
+      name="user_name"
+      placeholder="Nombre de usuario"
+      required="required"
+    />
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      placeholder="Password"
+      required="required"
+    />
+    <button type="submit" (click)="login()">Log in</button>
+    <a class="registrarsebutton" [routerLink]="['/register']">Registrarse</a>
+    <h3> {{mensaje}}</h3>
+  </form>
+</div>

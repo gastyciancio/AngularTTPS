@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Service } from '../service'
 import { ServicioService } from '../provider-service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-servicio',
@@ -10,35 +13,76 @@ import { ServicioService } from '../provider-service';
 })
 export class NuevoServicioComponent implements OnInit {
 
- model = new Service(" "," "," "," "," "," "," "," ");
+ model = new Service(0," "," "," "," "," "," "," "," "," "," ");
+ mensaje:string=""
+ public selectedFile:any=[];
+ contadorFotos:number=0;
+ previsualizacion:any[]=[];
+ @ViewChild('Imagenes1') myInputFileVariable1: ElementRef =new ElementRef("srgsg");
+ @ViewChild('Imagenes2') myInputFileVariable2: ElementRef =new ElementRef("srgsg");
+ @ViewChild('Imagenes3') myInputFileVariable3: ElementRef =new ElementRef("srgsg");
+
+ constructor(private sanitizer: DomSanitizer,private serService: ServicioService,private location: Location,public router:Router) { }
 
  onSubmit() { 
 
   this.add(this.model.nombre,this.model.tipo,this.model.descripcion,this.model.url,
-    this.model.twitter,this.model.instagram,this.model.whatsapp,this.model.imagenes);
+    this.model.twitter,this.model.instagram,this.model.whatsapp);
    
 }
 
- 
- get diagnostic() { return JSON.stringify(this.model); }
+extraerBase64 = async ($event: any) => new Promise((resolve) => {
+  try {
+    const unsafeImg = window.URL.createObjectURL($event);
+    const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
+    const reader = new FileReader();
+    reader.readAsDataURL($event);
+    reader.onload = () => { 
+       resolve({
+        base: reader.result
+      });
+    };
+    reader.onerror = error => {
+       resolve({
+        base: null
+      });
+    };
+    return null;
 
-  constructor(private serService: ServicioService) { }
+  } catch (e) {
+    return null;
+  }
+})
 
+public processFile(event:any,posicion:number){
+  try{
+      if(this.selectedFile[posicion]==undefined)
+        this.contadorFotos=this.contadorFotos+1;
+      const archivoCapturado = event.target.files[0]
+      this.extraerBase64(archivoCapturado).then((imagen: any) => {
+        this.previsualizacion[posicion] = imagen.base;
+      })
+      this.selectedFile[posicion]=archivoCapturado;
+    }
+    catch{}
+  }
+   
   ngOnInit(): void {
+  
   }
 
-  
+  clearImage(): any {
+    this.previsualizacion = [];
+    this.selectedFile = [];
+  }
+
   add(nombre_: string,
       tipo_:string,
       descripcion_:string,
       url_:string,
       twitter_:string,
       instagram_:string,
-      whatsapp_:string,
-      imagenes_:string): void {
-
-
-        console.log(nombre_);
+      whatsapp_:string): void {
 
         nombre_ = nombre_.trim();
         tipo_ = tipo_.trim();
@@ -47,23 +91,52 @@ export class NuevoServicioComponent implements OnInit {
         twitter_ = twitter_.trim();
         instagram_ = instagram_.trim();
         whatsapp_ = whatsapp_.trim();
-        imagenes_ = imagenes_.trim();
+        
+    let foto1:string="";
+    let foto2:string="";
+    let foto3:string="";
+    if(this.selectedFile[1]!=undefined)
+            foto1=this.previsualizacion[1];
+    if(this.selectedFile[2]!=undefined)
+            foto2=foto2+this.previsualizacion[2];
+    if(this.selectedFile[3]!=undefined)
+            foto3=this.previsualizacion[3];
 
-    
-    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || imagenes_=="") { return; }
-
+    if (nombre_=="" || tipo_=="" || descripcion_=="" || url_=="" || twitter_=="" || instagram_=="" || whatsapp_=="" || (foto1=="" && foto2=="" && foto3=="")) {  this.mensaje="Complete todos los datos por favor"; return }
+    if (this.contadorFotos>4) {  this.mensaje="La cantidad de fotos deben ser como maximo 3"; return }
+      
     // The server will generate the id 
-    const newServicio: Service = { nombre : nombre_,
-      tipo:tipo_,
-      descripcion:descripcion_,
+    const newServicio: Service = {
+      nombre: nombre_,
+      tipo: tipo_,
+      descripcion: descripcion_,
       url: url_,
-      twitter:twitter_,
-      instagram:instagram_,
-      whatsapp:whatsapp_,
-      imagenes:imagenes_ } as Service;
-    this.serService.addService(newServicio)
-    .subscribe(servicio =>null);
-    }
-   
+      twitter: twitter_,
+      instagram: instagram_,
+      whatsapp: whatsapp_,
+      imagen1: foto1,
+      imagen2: foto2,
+      imagen3: foto3
 
+    } as Service;
+    this.selectedFile = [];
+    this.contadorFotos=0;
+    foto1="";
+    foto2="";
+    foto3="";
+  
+    this.serService.addService(newServicio)
+    .subscribe(  (res) => {
+      this.model=new Service(0," "," "," "," "," "," "," "," "," "," ");
+      this.mensaje="Servicio agregado";
+      this.clearImage()
+      this.myInputFileVariable1.nativeElement.value='';
+      this.myInputFileVariable2.nativeElement.value='';
+      this.myInputFileVariable3.nativeElement.value='';
+    },
+    err =>{if(err.status==401) this.router.navigate(['/'])});
+  }
+  back(): void {
+    this.location.back()
+  }
 }

@@ -1,38 +1,78 @@
-<form (ngSubmit)="onSubmit()" #servicioForm="ngForm">
-    <div class="form-group">
-     <label for="name">Nombre</label>
-     <input type="text" class="form-control" id="Nombre" required [(ngModel)]="model.nombre" name="Nombre">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"  [routerLink]="['/home']">Home</a>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link active goback btn btn-light" aria-current="page" (click)="back()">Volver</button>
+           </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br>
+<div class="registerServicio">
+    <form class="custom-form" (ngSubmit)="onSubmit()" #servicioForm="ngForm">
+        <div class="form-group mmb-3">
+        <label class="form-label" for="name">Nombre</label>
+        <input type="text" id="Nombre" required [(ngModel)]="model.nombre" name="Nombre">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Tipo</label>
+            <input type="text"  id="Tipo" required [(ngModel)]="model.tipo" name="Tipo">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Descripcion</label>
+            <input type="text"  required id="Descripcion"  [(ngModel)]="model.descripcion" name="Descripcion">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Url</label>
+            <input type="text"  id="Url" required [(ngModel)]="model.url" name="Url">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Twitter</label>
+            <input type="text"id="Twitter" required [(ngModel)]="model.twitter" name="Twitter">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Instagram</label>
+            <input type="text"  id="Instagram" required [(ngModel)]="model.instagram" name="Instagram">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Whatsapp</label>
+            <input type="text"  id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
+        </div>
+        <div class="form-group mmb-3">
+            <label class="form-label" for="name">Imagenes</label>
+            <br>
+            <input type="file"  (change)="processFile($event,1)"  accept="image/*" #Imagenes1 required name="Imagenes1">
+            <br>
+            <input type="file"  (change)="processFile($event,2)"  accept="image/*" #Imagenes2 required name="Imagenes2">
+            <br>
+            <input type="file"  (change)="processFile($event,3)"  accept="image/*" #Imagenes3 required name="Imagenes3">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Crear servicio</button>
+        <br>
+        <h3> {{mensaje}}</h3>
+
+    </form>
+</div>
+<div class="previewfotos">
+
+    <div *ngIf="previsualizacion[1]">
+        <img height="200px" [src]="previsualizacion[1]"/>
+    </div>
+    <div *ngIf="previsualizacion[2]">
+        <img height="200px" [src]="previsualizacion[2]"/>
+    </div>
+    <div *ngIf="previsualizacion[3]">
+        <img height="200px" [src]="previsualizacion[3]"/>
     </div>
 
-    <div class="form-group">
-        <label for="name">Tipo</label>
-        <input type="text" class="form-control" id="Tipo" required [(ngModel)]="model.tipo" name="Tipo">
-    </div>
-    <div class="form-group">
-        <label for="name">Descripcion</label>
-        <input type="text" class="form-control" required id="Descripcion"  [(ngModel)]="model.descripcion" name="Descripcion">
-    </div>
-    <div class="form-group">
-        <label for="name">Url</label>
-        <input type="text" class="form-control" id="Url" required [(ngModel)]="model.url" name="Url">
-    </div>
-    <div class="form-group">
-        <label for="name">Twitter</label>
-        <input type="text" class="form-control" id="Twitter" required [(ngModel)]="model.twitter" name="Twitter">
-    </div>
-    <div class="form-group">
-        <label for="name">Instagram</label>
-        <input type="text" class="form-control" id="Instagram" required [(ngModel)]="model.instagram" name="Instagram">
-    </div>
-    <div class="form-group">
-        <label for="name">Whatsapp</label>
-        <input type="text" class="form-control" id="Whatsapp" required [(ngModel)]="model.whatsapp" name="Whatsapp">
-    </div>
-    <div class="form-group">
-        <label for="name">Imagenes</label>
-        <input type="text" class="form-control" id="Imagenes" required [(ngModel)]="model.imagenes" name="Imagenes">
-    </div>
-   
-    <button type="submit" class="btn btn-success">Submit</button>
-
-</form>
+</div>
