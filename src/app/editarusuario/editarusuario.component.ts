@@ -54,4 +54,4 @@ export class EditarUsuarioComponent implements OnInit{
       this.mensaje="El mail/nombre de usuario ya existe"; return}
     )
   }
-}
+} 
