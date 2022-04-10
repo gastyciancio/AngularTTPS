@@ -24,7 +24,7 @@ export class EditarUsuarioComponent implements OnInit{
   
   ngOnInit(): void {
     this.userService.getUser().subscribe(
-        data =>{this.x=data;console.log(this.x);
+        data =>{this.x=data;
           this.email=this.x.email;
           this.password=this.x.contraseña;
           this.name=this.x.nombre;
@@ -42,7 +42,6 @@ export class EditarUsuarioComponent implements OnInit{
 
     if (this.email=="" || this.password=="" || this.name=="" || this.username=="" || this.lastname=="") {  this.mensaje="Complete todos los datos por favor"; return }
       const user ={email:this.email,contraseña:this.password,nombre:this.name,nombre_usuario:this.username,apellido:this.lastname}
-    console.log(this.x)
     const httph = {
         headers: new HttpHeaders({
           'token': this.userService.getToken()
@@ -50,7 +49,7 @@ export class EditarUsuarioComponent implements OnInit{
       }; 
 
     this.userService.edit(user,httph).subscribe(
-      data =>{console.log(data);this.mensaje="Se ha cambiado su informacion";return }
+      data =>{this.mensaje="Se ha cambiado su informacion";return }
     , err =>{ if(err.status==401) this.router.navigate(['/']);
       this.mensaje="El mail/nombre de usuario ya existe"; return}
     )
